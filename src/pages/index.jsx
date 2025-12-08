@@ -1,13 +1,15 @@
 import React from 'react';
 import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer/Footer.jsx';
+import StatusBar from '../components/StatusBar/StatusBar.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
-import '../css/app.scss'; 
+import '../css/homepage.scss'; 
+import BrowsePage from './BrowsePage.jsx';
 
-const HomePage = () => {
+const HomePage = ({ onNavigate }) => {
   const dealOfTheDay = {
     image: '/src/assets/rode-podmic.png', 
-    title: 'RODE PodMic',
+    title: 'RØDE PodMic',
     price: '108.20',
     originalPrice: '199.99',
     category: 'Microphones',
@@ -72,8 +74,8 @@ const HomePage = () => {
           </div>
         </section>
       </main>
-      
-      <Footer activeTab="home" />
+
+      <Footer activeTab="home" onNavigate={onNavigate} />
     </div>
   );
 };

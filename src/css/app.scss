@@ -1,73 +1,78 @@
-.homepage {
-  min-height: 100vh;
-  background-color: #fff;
-  padding-bottom: 90px;
-  
-  &__content {
-    padding: 20px;
-  }
-  
-  &__section {
-    margin-bottom: 32px;
-  }
-  
-  &__section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end; 
-    margin-bottom: 16px;
-  }
-  
-  &__section-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #000;
-    margin: 0;
-  }
-  
-  &__see-all {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    color: #ACB5BD; 
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0; 
-    margin-bottom: 2px; 
-    
-    &:hover {
-      color: #000;
-    }
-  }
-  
-  &__recommended {
-      display: grid; 
-      grid-template-columns: repeat(2, 1fr); 
-      gap: 16px;
-      padding-bottom: 4px;
-    }
+$color-gray-900: #212429; // Màu chữ chính (Content/Primary)
+$color-gray-700: #495057;
+$color-gray-600: #ACB5BD; // Màu chữ phụ (Content/Secondary)
+$color-gray-500: #ACB5BD;
+$color-gray-200: #C9CCCF;
+$color-gray-100: #DDE2E5;
+$color-gray-50:  #F6F7F7; // Màu nền phụ (Background/Secondary)
+$color-white:    #FFFFFF; // Màu nền chính (Background/Primary)
+$color-red-600:  #EC1B40; // Màu giá giảm / Sale
+$font-family-main: 'Inter', sans-serif;
+
+// --- 2. GLOBAL RESET ---
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent; // Bỏ highlight xanh khi bấm trên mobile
 }
-.slide-indicators {
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: $font-family-main;
+  background-color: $color-white;
+  color: $color-gray-900;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-x: hidden; // Chặn cuộn ngang
+}
+
+// --- 3. APP CONTAINER ---
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-color: $color-white;
+  
+  // Nếu bạn test trên trình duyệt PC, dòng này giúp mô phỏng điện thoại
+  // Nếu build thật trên Zalo thì nó sẽ tự full màn hình
+  max-width: 100%; 
+  margin: 0 auto;
+}
+
+// --- 4. STYLE CHO CÁC TRANG CHƯA LÀM (PLACEHOLDER) ---
+// Dùng cho Cart, Profile, Favourites để căn giữa nội dung
+.page-placeholder {
   display: flex;
-  justify-content: center; 
+  flex-direction: column;
   align-items: center;
-  gap: 6px; 
-  margin-top: 16px; 
+  justify-content: center;
+  height: 100vh; // Full chiều cao màn hình
+  background-color: $color-gray-50;
+  padding: 20px;
+  text-align: center;
 
-  &__dot {
-    width: 9px;
-    height: 4px;
-    border-radius: 5px;
-    background-color: #E0E0E0; 
-    transition: all 0.3s ease; 
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: $color-gray-900;
+  }
+
+  p {
+    color: $color-gray-600;
+    margin-bottom: 24px;
+  }
+
+  // Button giả lập để quay về
+  button {
+    padding: 12px 24px;
+    background-color: $color-gray-900;
+    color: $color-white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
-
-    &--active {
-      width: 35px; 
-      height: 4px; 
-      background-color: #212429; 
-      border-radius: 5px;
-    }
   }
 }

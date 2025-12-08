@@ -11,6 +11,8 @@ import "./css/tailwind.scss";
 // Your stylesheet
 import "./css/app.scss";
 
+import App from "./pages/App.jsx"; 
+
 // Expose app configuration
 import appConfig from "../app-config.json";
 if (!window.APP_CONFIG) {
@@ -18,6 +20,6 @@ if (!window.APP_CONFIG) {
 }
 
 // Mount the app
-import Layout from "./components/layout";
 const root = createRoot(document.getElementById("app"));
-root.render(React.createElement(Layout));
+
+root.render(React.createElement(App));

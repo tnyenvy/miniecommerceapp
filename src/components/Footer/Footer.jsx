@@ -1,11 +1,11 @@
 import React from 'react';
 import './Footer.scss';
 
-const Footer = ({ activeTab = 'home' }) => {
+const Footer = ({ activeTab, onNavigate }) => {
   const navItems = [
     { id: 'home', label: 'Home', icon: 'home.png' },
     { id: 'browse', label: 'Browse', icon: 'search.png' },
-    { id: 'favourites', label: 'Favourites', icon: 'heart.png', badge: 6 },
+    { id: 'favourites', label: 'Favourites', icon: 'heart.png', badge: 2 },
     { id: 'cart', label: 'Cart', icon: 'cart.png' },
     { id: 'profile', label: 'Profile', icon: 'profile.png' }
   ];
@@ -17,6 +17,7 @@ const Footer = ({ activeTab = 'home' }) => {
           <button 
             key={item.id}
             className={`footer__nav-item ${activeTab === item.id ? 'footer__nav-item--active' : ''}`}
+            onClick={() => onNavigate && onNavigate(item.id)}
           >
             <div className="footer__icon-wrapper">
               <img 
