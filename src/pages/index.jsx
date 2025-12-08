@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer/Footer.jsx';
-import StatusBar from '../components/StatusBar/StatusBar.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
+import StatusBar from '../components/StatusBar/StatusBar.jsx'; // Nhớ import StatusBar nếu đã tách
 import '../css/homepage.scss'; 
-import BrowsePage from './BrowsePage.jsx';
 
-const HomePage = ({ onNavigate }) => {
+const HomePage = ({ onNavigate, onProductClick }) => {
+  
   const dealOfTheDay = {
     image: '/src/assets/rode-podmic.png', 
     title: 'RØDE PodMic',
@@ -33,12 +33,13 @@ const HomePage = ({ onNavigate }) => {
 
   return (
     <div className="homepage">
+      <StatusBar />
+      
       <Header userName="Michael" />
       
       <main className="homepage__content">
-        {/* --- Section: DEALS OF THE DAY --- */}
+        {/* --- DEALS OF THE DAY --- */}
         <section className="homepage__section">
-          {/* Header section */}
           <div className="homepage__section-header">
             <h2 className="homepage__section-title">Deals of the day</h2>
             <button className="homepage__see-all">See all</button>
@@ -48,10 +49,10 @@ const HomePage = ({ onNavigate }) => {
             <ProductCard
               size="large"
               {...dealOfTheDay}
+              onClick={() => onProductClick && onProductClick(dealOfTheDay)}
             />
           </div>
 
-          {/* --- SLIDE BAR --- */}
           <div className="slide-indicators">
             <span className="slide-indicators__dot slide-indicators__dot--active"></span>
             <span className="slide-indicators__dot"></span>
@@ -59,7 +60,7 @@ const HomePage = ({ onNavigate }) => {
           </div>
         </section>
 
-        {/* --- Section: RECOMMENDED --- */}
+        {/* ---  RECOMMENDED --- */}
         <section className="homepage__section">
           <h2 className="homepage__section-title">Recommended for you</h2>
           
@@ -69,12 +70,13 @@ const HomePage = ({ onNavigate }) => {
                 key={index}
                 size="small"
                 {...product}
+                onClick={() => onProductClick && onProductClick(product)}
               />
             ))}
           </div>
         </section>
       </main>
-
+      
       <Footer activeTab="home" onNavigate={onNavigate} />
     </div>
   );
