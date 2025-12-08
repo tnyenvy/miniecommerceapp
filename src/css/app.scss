@@ -1,20 +1,19 @@
-$color-gray-900: #212429; // Màu chữ chính (Content/Primary)
+$color-gray-900: #212429; 
 $color-gray-700: #495057;
-$color-gray-600: #ACB5BD; // Màu chữ phụ (Content/Secondary)
+$color-gray-600: #ACB5BD; 
 $color-gray-500: #ACB5BD;
 $color-gray-200: #C9CCCF;
 $color-gray-100: #DDE2E5;
-$color-gray-50:  #F6F7F7; // Màu nền phụ (Background/Secondary)
-$color-white:    #FFFFFF; // Màu nền chính (Background/Primary)
-$color-red-600:  #EC1B40; // Màu giá giảm / Sale
+$color-gray-50:  #F6F7F7; 
+$color-white:    #FFFFFF; 
+$color-red-600:  #EC1B40; 
 $font-family-main: 'Inter', sans-serif;
 
-// --- 2. GLOBAL RESET ---
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  -webkit-tap-highlight-color: transparent; // Bỏ highlight xanh khi bấm trên mobile
+  -webkit-tap-highlight-color: transparent; 
 }
 
 html, body {
@@ -25,30 +24,26 @@ html, body {
   color: $color-gray-900;
   font-size: 14px;
   line-height: 1.5;
-  overflow-x: hidden; // Chặn cuộn ngang
+  overflow-x: hidden; 
 }
 
-// --- 3. APP CONTAINER ---
+// --- APP CONTAINER ---
 .app-container {
   width: 100%;
   min-height: 100vh;
   position: relative;
   background-color: $color-white;
-  
-  // Nếu bạn test trên trình duyệt PC, dòng này giúp mô phỏng điện thoại
-  // Nếu build thật trên Zalo thì nó sẽ tự full màn hình
   max-width: 100%; 
   margin: 0 auto;
 }
 
 // --- 4. STYLE CHO CÁC TRANG CHƯA LÀM (PLACEHOLDER) ---
-// Dùng cho Cart, Profile, Favourites để căn giữa nội dung
 .page-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; // Full chiều cao màn hình
+  height: 100vh; 
   background-color: $color-gray-50;
   padding: 20px;
   text-align: center;
