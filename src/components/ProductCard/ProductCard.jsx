@@ -9,39 +9,43 @@ const ProductCard = ({
   category, 
   description,
   model,
-  size = 'large' 
+  size = 'large'
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const toggleFavorite = (e) => {
+  // Kiểm tra giảm giá để đổi màu text
+  const isDiscounted = !!originalPrice;
+
+  const handleFavoriteClick = (e) => {
     e.stopPropagation();
     setIsFavorite(!isFavorite);
   };
 
   return (
     <div className={`product-card product-card--${size}`}>
+      
       <button 
-        className="product-card__favorite"
-        onClick={toggleFavorite}
+        className="product-card__favorite" 
+        onClick={handleFavoriteClick}
       >
         {isFavorite ? '🖤' : '🤍'}
       </button>
-      
+
+      {/* KHUNG ẢNH */}
       <div className="product-card__image-wrapper">
-        <img 
-          src={image} 
-          alt={title}
-          className="product-card__image"
-        />
+        <img src={image} alt={title} className="product-card__image" />
       </div>
-      
+
+      {/* KHUNG THÔNG TIN */}
       <div className="product-card__info">
         {size === 'large' && category && (
           <p className="product-card__category">{category}</p>
         )}
         
         <div className="product-card__price-wrapper">
-          <span className="product-card__price">${price}</span>
+          <span className={`product-card__price ${isDiscounted ? 'product-card__price--discount' : ''}`}>
+            ${price}
+          </span>
           {originalPrice && (
             <span className="product-card__original-price">${originalPrice}</span>
           )}
@@ -57,14 +61,6 @@ const ProductCard = ({
           <p className="product-card__model">{model}</p>
         )}
       </div>
-      
-      {size === 'large' && (
-        <div className="product-card__indicators">
-          <span className="product-card__indicator product-card__indicator--active"></span>
-          <span className="product-card__indicator"></span>
-          <span className="product-card__indicator"></span>
-        </div>
-      )}
     </div>
   );
 };

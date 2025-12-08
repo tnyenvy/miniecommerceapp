@@ -1,166 +1,179 @@
+$color-gray-50: #F6F7F7;
+$color-red-600: #EC1B40;
+$color-gray-500: #ACB5BD;
+$color-gray-900: #212429;
+$color-white: #FFFFFF;
+
 .product-card {
-  background-color: #F5F5F5;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  padding: 16px;
+  border: none;
   position: relative;
   cursor: pointer;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  
-  &--large {
-    width: 100%;
-    padding: 20px;
-  }
-  
-  &--small {
-    flex: 0 0 160px;
-    min-width: 160px;
-  }
-  
+  transition: transform 0.2s ease;
+  font-family: 'Inter', sans-serif;
+
+  // --- FAVORITE trái tim ---
   &__favorite {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    background-color: #fff;
+    width: 28px;
+    height: 28px;
+    background-color: $color-white;
     border: none;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+    z-index: 5;
     cursor: pointer;
-    z-index: 2;
     font-size: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
-    
-    &:hover {
-      transform: scale(1.1);
-    }
-    
-    img {
-      width: 16px;
-      height: 16px;
-    }
+    color: $color-gray-900;
   }
-  
-  &__image-wrapper {
-    width: 100%;
+
+  &--large {
+    background-color: $color-gray-50;
+    border-radius: 16px;
+    padding: 16px;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
-    padding: 8px 0;
-  }
-  
-  &__image {
+    gap: 16px;
     width: 100%;
-    height: auto;
-    max-height: 160px;
-    object-fit: contain;
     
-    .product-card--small & {
-      max-height: 100px;
+    .product-card__favorite {
+      top: 16px;
+      right: 16px;
+    }
+
+    .product-card__image-wrapper {
+      width: 40%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .product-card__info {
+      width: 60%;
+      align-items: flex-start;
+    }
+
+    .product-card__image {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      mix-blend-mode: multiply;
     }
   }
-  
+
+  // RECOMMENDED //
+  &--small {
+    background-color: transparent;
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+
+    .product-card__favorite {
+      top: 10px;  
+      right: 10px; 
+    }
+
+    .product-card__image-wrapper {
+      background-color: $color-gray-50;
+      border-radius: 16px;
+      width: 100%;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .product-card__image {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+
+    .product-card__info {
+      padding: 0 4px;
+    }
+  }
+
+  //TEXT & MÀU // 
   &__info {
     display: flex;
     flex-direction: column;
-    gap: 4px;
   }
-  
+
   &__category {
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    color: #666;
+    font-size: 10px; 
+    font-weight: 500;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px; 
     margin-bottom: 4px;
   }
-  
+
+  // 2. Title (Tên sản phẩm) 
+  &__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; 
+    font-weight: 500; 
+    color: $color-gray-900;
+    line-height: 1.3; 
+    margin: 4px 0 6px 0; 
+    
+    // Giới hạn 2 dòng
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // 3. Wrapper giá tiền
   &__price-wrapper {
     display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 2px;
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 4px;
   }
-  
+
+  // 4. Giá hiện tại
   &__price {
     font-family: 'Inter', sans-serif;
     font-size: 16px;
-    font-weight: 700;
-    color: #ff3b5c;
-    
-    .product-card--small & {
-      font-size: 15px;
+    font-weight: 700; 
+    color: $color-gray-900;
+
+    &--discount {
+      color: $color-red-600;
     }
   }
-  
+
+  // 5. Giá gốc 
   &__original-price {
     font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    color: #999;
+    font-size: 12px; 
+    color: $color-gray-500; 
     text-decoration: line-through;
-    
-    .product-card--small & {
-      font-size: 12px;
-    }
-  }
-  
-  &__title {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: #000;
-    line-height: 1.3;
-    margin: 2px 0;
-    
-    .product-card--small & {
-      font-size: 13px;
-      line-height: 1.4;
-    }
-  }
-  
-  &__description {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
     font-weight: 400;
-    color: #666;
+  }
+
+  // 6. Mô tả 
+  &__description, &__model {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #888; 
+    margin-top: 2px;
     line-height: 1.4;
-    margin-top: 2px;
-  }
-  
-  &__model {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
     font-weight: 400;
-    color: #999;
-    line-height: 1.3;
-    margin-top: 2px;
-  }
-  
-  &__indicators {
-    display: flex;
-    gap: 4px;
-    justify-content: center;
-    margin-top: 16px;
-    padding-top: 12px;
-  }
-  
-  &__indicator {
-    width: 32px;
-    height: 2px;
-    background-color: #d9d9d9;
-    border-radius: 1px;
     
-    &--active {
-      background-color: #000;
-    }
+    // Giới hạn 2 dòng
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

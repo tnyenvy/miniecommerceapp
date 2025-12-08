@@ -5,7 +5,7 @@ const Footer = ({ activeTab = 'home' }) => {
   const navItems = [
     { id: 'home', label: 'Home', icon: 'home.png' },
     { id: 'browse', label: 'Browse', icon: 'search.png' },
-    { id: 'favourites', label: 'Favourites', icon: 'heart.png', badge: 2 },
+    { id: 'favourites', label: 'Favourites', icon: 'heart.png', badge: 6 },
     { id: 'cart', label: 'Cart', icon: 'cart.png' },
     { id: 'profile', label: 'Profile', icon: 'profile.png' }
   ];

@@ -44,7 +44,7 @@
     align-items: center;
     justify-content: center;
   }
-  
+    
   &__icon {
     width: 20px;
     height: 20px;
@@ -55,15 +55,15 @@
     position: absolute;
     top: -4px;
     right: -8px;
-    background-color: #000;
+    background-color: #999;
     color: #fff;
     font-family: 'Inter', sans-serif;
     font-size: 10px;
     font-weight: 600;
-    border-radius: 10px;
+    border-radius: 21px;
     padding: 2px 5px;
-    min-width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 14px;
     display: flex;
     align-items: center;
     justify-content: center;

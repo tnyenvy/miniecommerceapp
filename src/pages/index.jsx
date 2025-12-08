@@ -2,11 +2,11 @@ import React from 'react';
 import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
-import '../css/app.scss';
+import '../css/app.scss'; 
 
 const HomePage = () => {
   const dealOfTheDay = {
-    image: '/src/assets/rode-podmic.png',
+    image: '/src/assets/rode-podmic.png', 
     title: 'RODE PodMic',
     price: '108.20',
     originalPrice: '199.99',
@@ -34,7 +34,9 @@ const HomePage = () => {
       <Header userName="Michael" />
       
       <main className="homepage__content">
+        {/* --- Section: DEALS OF THE DAY --- */}
         <section className="homepage__section">
+          {/* Header section */}
           <div className="homepage__section-header">
             <h2 className="homepage__section-title">Deals of the day</h2>
             <button className="homepage__see-all">See all</button>
@@ -43,16 +45,19 @@ const HomePage = () => {
           <div className="homepage__deals">
             <ProductCard
               size="large"
-              image={dealOfTheDay.image}
-              title={dealOfTheDay.title}
-              price={dealOfTheDay.price}
-              originalPrice={dealOfTheDay.originalPrice}
-              category={dealOfTheDay.category}
-              description={dealOfTheDay.description}
+              {...dealOfTheDay}
             />
+          </div>
+
+          {/* --- SLIDE BAR --- */}
+          <div className="slide-indicators">
+            <span className="slide-indicators__dot slide-indicators__dot--active"></span>
+            <span className="slide-indicators__dot"></span>
+            <span className="slide-indicators__dot"></span>
           </div>
         </section>
 
+        {/* --- Section: RECOMMENDED --- */}
         <section className="homepage__section">
           <h2 className="homepage__section-title">Recommended for you</h2>
           
@@ -61,10 +66,7 @@ const HomePage = () => {
               <ProductCard
                 key={index}
                 size="small"
-                image={product.image}
-                title={product.title}
-                price={product.price}
-                model={product.model}
+                {...product}
               />
             ))}
           </div>
