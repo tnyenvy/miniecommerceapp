@@ -1,0 +1,50 @@
+.carousel {
+  width: 100%;
+  position: relative;
+  
+  &__wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  &__item {
+    flex: 0 0 100%;
+    min-width: 100%;
+    scroll-snap-align: start;
+    padding: 0 2px;
+  }
+  
+  &__indicators {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-top: 16px;
+    padding: 0 20px;
+  }
+  
+  &__indicator {
+    width: 32px;
+    height: 2px;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+    
+    &--active {
+      background-color: #000;
+    }
+    
+    &:hover {
+      background-color: #999;
+    }
+  }
+}

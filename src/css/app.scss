@@ -1,14 +1,92 @@
-.page {
-  padding: 16px 16px 96px 16px;
+// Global Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.section-container {
-  padding: 16px;
-  background: #ffffff;
-  border-radius: 8px;
-  margin-bottom: 24px;
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fff;
 }
 
-.zaui-list-item {
-  cursor: pointer;
+// HomePage Styles
+.homepage {
+  min-height: 100vh;
+  background-color: #fff;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 90px;
+  
+  &__content {
+    padding: 0 20px 20px 20px;
+  }
+  
+  &__section {
+    margin-bottom: 32px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  &__section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+  }
+  
+  &__see-all {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    
+    &:hover {
+      color: #000;
+    }
+  }
+  
+  &__deals {
+    width: 100%;
+  }
+  
+  &__recommended {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    color: #212429;
+    
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f0f0f0;
+      border-radius: 2px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 2px;
+      
+      &:hover {
+        background: #999;
+      }
+    }
+  }
 }
