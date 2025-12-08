@@ -9,7 +9,8 @@ const ProductCard = ({
   category, 
   description,
   model,
-  size = 'large'
+  size = 'large',
+  onClick
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -22,7 +23,7 @@ const ProductCard = ({
   };
 
   return (
-    <div className={`product-card product-card--${size}`}>
+    <div className={`product-card product-card--${size}`} onClick={onClick}>
       
       <button 
         className="product-card__favorite" 
