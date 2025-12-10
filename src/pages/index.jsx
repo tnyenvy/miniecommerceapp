@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react'; 
 import { useNavigate } from 'zmp-ui';
 import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
-import favouriteItems from './FavouritesPage.jsx';
 import '../css/homepage.scss'; 
 
 const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
   const navigate = useNavigate();
+  
+  const [activeTab, setActiveTab] = useState('all');
 
   const dealOfTheDay = {
     id: 1, 
@@ -19,22 +20,45 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
     description: 'Dynamic microphone, Speaker microphone'
   };
 
-  const recommendedProducts = [
+  const allProducts = [
     {
       id: 4,
       image: '/src/assets/sony-headphones-black.png',
       title: 'SONY Premium Wireless Headphones',
       price: 349.99,
-      model: 'Model: WH-1000XM4, Black'
+      model: 'Model: WH-1000XM4, Black',
+      category: 'audio'
     },
     {
       id: 2, 
       image: '/src/assets/sony-headphones-beige.png',
       title: 'SONY Premium Wireless Headphones',
       price: 349.99,
-      model: 'Model: WH-1000XM4, Beige'
+      model: 'Model: WH-1000XM4, Beige',
+      category: 'audio'
+    },
+    {
+      id: 10, 
+      image: '/src/assets/samsung-buds.png',
+      title: 'Drones Mavic Pro',
+      price: 999.00,
+      model: '4K Camera, 30mins flight',
+      category: 'drones'
+    },
+    {
+      id: 11, 
+      image: '/src/assets/speaker.png',
+      title: 'Google Nest Mini', 
+      price: 49.00,
+      model: 'Smart Speaker',
+      category: 'drones' 
     }
   ];
+
+  // Lọc sản phẩm
+  const filteredProducts = activeTab === 'all' 
+    ? allProducts 
+    : allProducts.filter(product => product.category === activeTab);
 
   const handleProductClick = (product) => {
     navigate('/product', { state: { product: product } });
@@ -47,7 +71,12 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
 
   return (
     <div className="homepage">
-      <Header userName="Michael" />
+      {/* Truyền state xuống Header */}
+      <Header 
+        userName="Michael" 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab} 
+      />
       
       <main className="homepage__content">
         <section className="homepage__section">
@@ -75,18 +104,26 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
 
         <section className="homepage__section">
           <h2 className="homepage__section-title">Recommended for you</h2>
-          <div className="homepage__recommended">
-            {recommendedProducts.map((product, index) => (
-              <ProductCard
-                key={index}
-                size="small"
-                {...product}
-                isFavorite={checkIsFavorite(product.id)}
-                onToggleFavorite={() => toggleFavourite(product)}
-                
-                onClick={() => handleProductClick(product)}
-              />
-            ))}
+          
+          {/* Animation-wrapper và key để kích hoạt hiệu ứng */}
+          <div 
+            className="homepage__recommended fade-in-up" 
+            key={activeTab} 
+          >
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product, index) => (
+                <ProductCard
+                  key={index}
+                  size="small"
+                  {...product}
+                  isFavorite={checkIsFavorite(product.id)}
+                  onToggleFavorite={() => toggleFavourite(product)}
+                  onClick={() => handleProductClick(product)}
+                />
+              ))
+            ) : (
+              <p style={{color: '#999', colSpan: 2}}>No products found in this category yet.</p>
+            )}
           </div>
         </section>
       </main>
