@@ -1,37 +1,46 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'; 
 import './Footer.scss';
 
-const Footer = ({ activeTab, onNavigate }) => {
+const Footer = ({ cartCount = 0 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const navItems = [
-    { id: 'home', label: 'Home', icon: 'home.png' },
-    { id: 'browse', label: 'Browse', icon: 'search.png' },
-    { id: 'favourites', label: 'Favourites', icon: 'heart.png', badge: 6 },
-    { id: 'cart', label: 'Cart', icon: 'cart.png' },
-    { id: 'profile', label: 'Profile', icon: 'profile.png' }
+    { path: '/', label: 'Home', icon: 'home.png' },
+    { path: '/browse', label: 'Browse', icon: 'search.png' },
+    { path: '/favourites', label: 'Favourites', icon: 'heart.png' },
+    { path: '/cart', label: 'Cart', icon: 'cart.png', badge: cartCount },
+    { path: '/profile', label: 'Profile', icon: 'profile.png' }
   ];
 
   return (
     <footer className="footer">
       <div className="footer__nav">
-        {navItems.map(item => (
-          <button 
-            key={item.id}
-            className={`footer__nav-item ${activeTab === item.id ? 'footer__nav-item--active' : ''}`}
-            onClick={() => onNavigate && onNavigate(item.id)}
-          >
-            <div className="footer__icon-wrapper">
-              <img 
-                src={`/src/assets/${item.icon}`} 
-                alt={item.label}
-                className="footer__icon"
-              />
-              {item.badge && (
-                <span className="footer__badge">{item.badge}</span>
-              )}
-            </div>
-            <span className="footer__label">{item.label}</span>
-          </button>
-        ))}
+        {navItems.map((item, index) => {
+          const isActive = location.pathname === item.path;
+
+          return (
+            <button 
+              key={index}
+              className={`footer__nav-item ${isActive ? 'footer__nav-item--active' : ''}`}
+              onClick={() => navigate(item.path)}
+            >
+              <div className="footer__icon-wrapper">
+                <img 
+                  src={`/src/assets/${item.icon}`} 
+                  alt={item.label}
+                  className="footer__icon"
+                />
+                {/* Chỉ hiện badge nếu có số lượng > 0 */}
+                {item.badge > 0 && (
+                  <span className="footer__badge">{item.badge}</span>
+                )}
+              </div>
+              <span className="footer__label">{item.label}</span>
+            </button>
+          );
+        })}
       </div>
       <div className="footer__indicator"></div>
     </footer>

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'zmp-ui';
 import Footer from '../components/Footer/Footer.jsx';
 import '../css/profile.scss';
 
-const ProfilePage = ({ onNavigate, cartCount }) => {
+const ProfilePage = ({ cartCount }) => {
+  const navigate = useNavigate();
+
   const [userInfo, setUserInfo] = useState({
     name: 'Michael',
     phone: '+84 123 456 789',
@@ -26,7 +29,10 @@ const ProfilePage = ({ onNavigate, cartCount }) => {
   };
 
   const handleLogout = () => {
+    // Đăng xuất 
     alert('Logging out...');
+    // Điều hướng về trang chủ
+    navigate('/');
   };
 
   return (
@@ -87,7 +93,7 @@ const ProfilePage = ({ onNavigate, cartCount }) => {
 
       </div>
 
-      <Footer activeTab="profile" onNavigate={onNavigate} cartCount={cartCount} />
+      <Footer cartCount={cartCount} />
     </div>
   );
 };

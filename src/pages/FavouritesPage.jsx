@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'zmp-ui';
 import Footer from '../components/Footer/Footer.jsx';
 import '../css/favourites.scss';
 
-const FavouritesPage = ({ onNavigate }) => {
+const FavouritesPage = ({ cartCount }) => {
+  const navigate = useNavigate();
+
   const favouriteItems = [
     {
       id: 1,
@@ -62,7 +65,10 @@ const FavouritesPage = ({ onNavigate }) => {
         {favouriteItems.map((item) => (
           <div key={item.id} className="favourite-item">
             {/* Ảnh */}
-            <div className="favourite-item__image-wrapper">
+            <div 
+              className="favourite-item__image-wrapper"
+              onClick={() => navigate('/product', { state: { product: item } })}
+            >
               <img src={item.image} alt={item.title} />
             </div>
 
@@ -80,10 +86,9 @@ const FavouritesPage = ({ onNavigate }) => {
               <p className="favourite-item__model">{item.subtitle || item.model}</p>
             </div>
 
-            {/* Actions */}
             <div className="favourite-item__actions">
               {/* Nút Cart */}
-              <button className="btn-cart">
+              <button className="btn-cart" onClick={() => navigate('/cart')}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
               </button>
               
@@ -96,7 +101,7 @@ const FavouritesPage = ({ onNavigate }) => {
         ))}
       </div>
 
-      <Footer activeTab="favourites" onNavigate={onNavigate} />
+      <Footer cartCount={cartCount} />
     </div>
   );
 };
