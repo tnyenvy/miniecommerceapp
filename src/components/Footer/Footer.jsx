@@ -2,14 +2,15 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; 
 import './Footer.scss';
 
-const Footer = ({ cartCount = 0 }) => {
+// 1. Nhận thêm prop favouriteCount
+const Footer = ({ cartCount = 0, favouriteCount = 0 }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const navItems = [
     { path: '/', label: 'Home', icon: 'home.png' },
     { path: '/browse', label: 'Browse', icon: 'search.png' },
-    { path: '/favourites', label: 'Favourites', icon: 'heart.png' },
+    { path: '/favourites', label: 'Favourites', icon: 'heart.png', badge: favouriteCount }, 
     { path: '/cart', label: 'Cart', icon: 'cart.png', badge: cartCount },
     { path: '/profile', label: 'Profile', icon: 'profile.png' }
   ];

@@ -12,43 +12,10 @@ import FavouritesPage from './FavouritesPage.jsx';
 import ProfilePage from './ProfilePage.jsx'; 
 
 const MyApp = () => {
-  // --- STATE GIỎ HÀNG ---
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      image: '/src/assets/rode-podmic.png', 
-      title: 'RØDE PodMic',
-      subtitle: 'Dynamic microphone, Speaker microphone',
-      price: 108.20,
-      originalPrice: 199.99,
-      quantity: 1
-    },
-    {
-        id: 2,
-        image: '/src/assets/sony-headphones-beige.png',
-        title: 'GOOGLE Nest Mini',
-        subtitle: 'Google Assistant, IFTTT',
-        price: 70.99,
-        quantity: 2
-      },
-      {
-        id: 3,
-        image: '/src/assets/samsung-buds.png',
-        title: 'XIAOMI Redmi Watch 3',
-        subtitle: '42.58 mm, Aluminium, Plastic, One size',
-        price: 94.90,
-        quantity: 1
-      },
-      {
-        id: 4,
-        image: '/src/assets/sony-headphones-black.png',
-        title: 'SONY Premium Wireless Headphones',
-        subtitle: 'Model: WH-1000XM4, Black',
-        price: 349.99,
-        quantity: 1
-      }
-  ]);
+  const [cartItems, setCartItems] = useState([]); 
+  const [favouriteItems, setFavouriteItems] = useState([]);
 
+  // ... (giữ nguyên các hàm updateQuantity, addToCart, removeFromCart, toggleFavourite)
   const updateQuantity = (id, change) => {
     setCartItems(items => items.map(item => {
       if (item.id === id) {
@@ -59,6 +26,31 @@ const MyApp = () => {
     }));
   };
 
+  const addToCart = (product) => {
+    setCartItems(prevItems => {
+      const existingItem = prevItems.find(item => item.id === product.id);
+      if (existingItem) {
+        return prevItems.map(item => 
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      }
+      return [...prevItems, { ...product, quantity: 1 }];
+    });
+    alert("Added to Cart!");
+  };
+
+  const removeFromCart = (id) => {
+    setCartItems(items => items.filter(item => item.id !== id));
+  };
+
+  const toggleFavourite = (product) => {
+    setFavouriteItems(prev => {
+      const exists = prev.find(item => item.id === product.id);
+      if (exists) return prev.filter(item => item.id !== product.id);
+      return [...prev, product];
+    });
+  };
+
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -67,45 +59,85 @@ const MyApp = () => {
         <ZMPRouter>
           <AnimationRoutes>
             
+            {/* TRUYỀN favouriteItems CHO TẤT CẢ CÁC ROUTE BÊN DƯỚI */}
+            
             <Route 
               path="/" 
-              element={<HomePage cartCount={totalItems} />} 
+              element={
+                <HomePage 
+                  cartCount={totalItems} 
+                  favouriteItems={favouriteItems} // <--- Thêm dòng này
+                  toggleFavourite={toggleFavourite} 
+                />
+              } 
             />
 
             <Route 
               path="/browse" 
-              element={<BrowsePage cartCount={totalItems} />} 
+              element={
+                <BrowsePage 
+                  cartCount={totalItems} 
+                  favouriteItems={favouriteItems} // <--- Thêm dòng này
+                />
+              } 
             />
-
+            
             <Route 
               path="/category" 
-              element={<CategoryPage cartCount={totalItems} />} 
+              element={
+                <CategoryPage 
+                  cartCount={totalItems} 
+                  favouriteItems={favouriteItems}
+                  toggleFavourite={toggleFavourite} 
+                />
+              } 
             />
 
             <Route 
               path="/product" 
-              element={<ProductDetailPage cartCount={totalItems} />} 
+              element={
+                <ProductDetailPage 
+                  cartCount={totalItems} 
+                  favouriteItems={favouriteItems}
+                  toggleFavourite={toggleFavourite} 
+                  addToCart={addToCart} 
+                />
+              } 
             />
-
+            
             <Route 
               path="/cart" 
               element={
                 <CartPage 
                   cartItems={cartItems} 
                   updateQuantity={updateQuantity} 
+                  removeFromCart={removeFromCart}
                   cartCount={totalItems} 
+                  favouriteItems={favouriteItems} // <--- Thêm dòng này
                 />
               } 
             />
 
             <Route 
               path="/favourites" 
-              element={<FavouritesPage cartCount={totalItems} />} 
+              element={
+                <FavouritesPage 
+                  favouriteItems={favouriteItems}
+                  addToCart={addToCart}
+                  removeFavourite={(id) => toggleFavourite({ id })} 
+                  cartCount={totalItems} 
+                />
+              } 
             />
 
             <Route 
               path="/profile" 
-              element={<ProfilePage cartCount={totalItems} />} 
+              element={
+                <ProfilePage 
+                  cartCount={totalItems} 
+                  favouriteItems={favouriteItems} // <--- Thêm dòng này
+                />
+              } 
             />
 
           </AnimationRoutes>

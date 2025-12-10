@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'zmp-ui';
 import Footer from '../components/Footer/Footer.jsx';
+import favouriteItems from './FavouritesPage.jsx';
 import '../css/profile.scss';
 
-const ProfilePage = ({ cartCount }) => {
+const ProfilePage = ({ cartCount, favouriteItems = [] }) => {
   const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
@@ -93,7 +94,7 @@ const ProfilePage = ({ cartCount }) => {
 
       </div>
 
-      <Footer cartCount={cartCount} />
+      <Footer cartCount={cartCount} favouriteCount={favouriteItems.length} />
     </div>
   );
 };

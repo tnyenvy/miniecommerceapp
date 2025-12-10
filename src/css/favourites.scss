@@ -129,3 +129,24 @@
     }
   }
 }
+.delete-popup {
+  position: absolute;
+  top: 100%;       // Hiển thị ngay bên dưới nút 3 chấm
+  right: 0;        // Canh lề phải thẳng hàng với nút 3 chấm
+  background-color: #fff;
+  color: #ff4d4f;  // Màu đỏ
+  border: 1px solid #eee;
+  padding: 8px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); // Đổ bóng cho nổi
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 10;     // Đảm bảo nổi lên trên các thành phần khác
+  white-space: nowrap;
+  margin-top: 4px;
+
+  &:active {
+    background-color: #fff1f0;
+  }
+}
