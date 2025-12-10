@@ -1,5 +1,6 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import { useNavigate } from 'zmp-ui';
+import { Swiper } from 'zmp-ui';
 import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
@@ -7,18 +8,39 @@ import '../css/homepage.scss';
 
 const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
   const navigate = useNavigate();
-  
   const [activeTab, setActiveTab] = useState('all');
+  const [activeIndex, setActiveIndex] = useState(0); 
 
-  const dealOfTheDay = {
-    id: 1, 
-    image: '/src/assets/rode-podmic.png', 
-    title: 'RØDE PodMic',
-    price: 108.20,
-    originalPrice: 199.99,
-    category: 'Microphones',
-    description: 'Dynamic microphone, Speaker microphone'
-  };
+  // Deals of the day 
+  const deals = [
+    {
+      id: 1, 
+      image: '/src/assets/rode-podmic.png', 
+      title: 'RØDE PodMic',
+      price: 108.20,
+      originalPrice: 199.99,
+      category: 'Microphones',
+      description: 'Dynamic microphone, Speaker microphone'
+    },
+    {
+      id: 99, 
+      image: '/src/assets/camera.png', 
+      title: 'Canon EOS R5',
+      price: 3899.00,
+      originalPrice: 4200.00,
+      category: 'Camera',
+      description: 'Mirrorless Camera, 8K Video, 45MP, 80fps'
+    },
+    {
+      id: 88, 
+      image: '/src/assets/watch.png', 
+      title: 'Apple Watch Series 9',
+      price: 399.00,
+      originalPrice: 459.00,
+      category: 'Watches',
+      description: 'Smartwatch, GPS, Midnight Aluminum'
+    }
+  ];
 
   const allProducts = [
     {
@@ -55,7 +77,6 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
     }
   ];
 
-  // Lọc sản phẩm
   const filteredProducts = activeTab === 'all' 
     ? allProducts 
     : allProducts.filter(product => product.category === activeTab);
@@ -71,7 +92,6 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
 
   return (
     <div className="homepage">
-      {/* Truyền state xuống Header */}
       <Header 
         userName="Michael" 
         activeTab={activeTab} 
@@ -86,26 +106,39 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
           </div>
           
           <div className="homepage__deals">
-            <ProductCard
-              size="large"
-              {...dealOfTheDay}
-              isFavorite={checkIsFavorite(dealOfTheDay.id)}
-              onToggleFavorite={() => toggleFavourite(dealOfTheDay)}
-              onClick={() => handleProductClick(dealOfTheDay)}
-            />
+            <Swiper 
+              autoplay 
+              loop 
+              duration={3500}
+              afterChange={(index) => setActiveIndex(index)}
+            >
+              {deals.map((deal) => (
+                <Swiper.Slide key={deal.id}>
+                  <ProductCard
+                    size="large"
+                    {...deal}
+                    isFavorite={checkIsFavorite(deal.id)}
+                    onToggleFavorite={() => toggleFavourite(deal)}
+                    onClick={() => handleProductClick(deal)}
+                  />
+                </Swiper.Slide>
+              ))}
+            </Swiper>
           </div>
 
           <div className="slide-indicators">
-            <span className="slide-indicators__dot slide-indicators__dot--active"></span>
-            <span className="slide-indicators__dot"></span>
-            <span className="slide-indicators__dot"></span>
+            {deals.map((_, index) => (
+              <span 
+                key={index}
+                className={`slide-indicators__dot ${index === activeIndex ? 'slide-indicators__dot--active' : ''}`}
+              ></span>
+            ))}
           </div>
         </section>
 
         <section className="homepage__section">
           <h2 className="homepage__section-title">Recommended for you</h2>
           
-          {/* Animation-wrapper và key để kích hoạt hiệu ứng */}
           <div 
             className="homepage__recommended fade-in-up" 
             key={activeTab} 
@@ -122,7 +155,7 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
                 />
               ))
             ) : (
-              <p style={{color: '#999', colSpan: 2}}>No products found in this category yet.</p>
+              <p style={{color: '#999', gridColumn: 'span 2'}}>No products found in this category yet.</p>
             )}
           </div>
         </section>
