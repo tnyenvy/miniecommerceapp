@@ -1,9 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'zmp-ui';
 import Footer from '../components/Footer/Footer.jsx';
-import ActionMenu from '../components/ActionMenu/ActionMenu.jsx'; 
-import favouriteItems from './FavouritesPage.jsx';
-import '../css/cart.scss';
+import CartItem from '../components/CartItem/CartItem.jsx';
+import '../css/cart.scss'; 
 
 const CartPage = ({ cartItems, updateQuantity, removeFromCart, cartCount, favouriteItems = [] }) => {
   const navigate = useNavigate();
@@ -21,39 +20,21 @@ const CartPage = ({ cartItems, updateQuantity, removeFromCart, cartCount, favour
         {cartItems.length === 0 ? (
            <div style={{textAlign: 'center', marginTop: 40, color: '#888'}}>
              <p>Your cart is empty</p>
-             <button onClick={() => navigate('/browse')} style={{marginTop: 10, padding: '8px 16px', background: '#212429', color: '#fff', border: 'none', borderRadius: 8}}>Go Shopping</button>
+             <button 
+               onClick={() => navigate('/browse')}
+               style={{marginTop: 10, padding: '8px 16px', background: '#212429', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer'}}
+             >
+               Go Shopping
+             </button>
            </div>
         ) : (
           cartItems.map((item) => (
-            <div key={item.id} className="cart-item">
-              <div 
-                className="cart-item__image-wrapper"
-                onClick={() => navigate('/product', { state: { product: item } })}
-              >
-                <img src={item.image} alt={item.title} />
-              </div>
-
-              <div className="cart-item__info">
-                <div className="cart-item__price-row">
-                  <span className={`cart-item__price ${item.originalPrice ? 'cart-item__price--discount' : ''}`}>
-                    ${item.price.toFixed(2)}
-                  </span>
-                  {item.originalPrice && <span className="cart-item__original-price">${item.originalPrice}</span>}
-                </div>
-                <h3 className="cart-item__title">{item.title}</h3>
-                <p className="cart-item__subtitle">{item.subtitle}</p>
-
-                <div className="cart-item__controls">
-                  <button className="qty-btn qty-btn--minus" onClick={() => updateQuantity(item.id, -1)}>-</button>
-                  <span className="qty-value">{item.quantity}</span>
-                  <button className="qty-btn qty-btn--plus" onClick={() => updateQuantity(item.id, 1)}>+</button>
-                </div>
-              </div>
-
-              <div className="cart-item__more-btn-wrapper">
-                  <ActionMenu onDelete={() => removeFromCart(item.id)} />
-              </div>
-            </div>
+            <CartItem 
+              key={item.id} 
+              item={item} 
+              updateQuantity={updateQuantity} 
+              onRemove={removeFromCart} 
+            />
           ))
         )}
       </div>
@@ -67,7 +48,9 @@ const CartPage = ({ cartItems, updateQuantity, removeFromCart, cartCount, favour
           </div>
 
           <div className="summary-row summary-row--total">
-            <span className="label">Total (TVA incl.)</span>
+            <span className="label">
+              Total <span className="tva-text">(TVA incl.)</span>
+            </span>
             <span className="value">${totalAmount.toFixed(2)}</span>
           </div>
 
@@ -75,7 +58,12 @@ const CartPage = ({ cartItems, updateQuantity, removeFromCart, cartCount, favour
 
           <div className="payment-icons">
             {paymentIcons.map((icon, index) => (
-              <img key={index} src={`/src/assets/${icon}`} alt="payment" onError={(e) => {e.target.style.display='none'}} />
+              <img 
+                key={index} 
+                src={`/src/assets/${icon}`} 
+                alt="payment" 
+                onError={(e) => {e.target.style.display='none'}} 
+              />
             ))}
           </div>
         </div>

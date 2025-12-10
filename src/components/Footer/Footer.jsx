@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; 
 import './Footer.scss';
 
-// 1. Nhận thêm prop favouriteCount
 const Footer = ({ cartCount = 0, favouriteCount = 0 }) => {
   const navigate = useNavigate();
   const location = useLocation();

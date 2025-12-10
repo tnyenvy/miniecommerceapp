@@ -18,7 +18,6 @@ const ActionMenu = ({ onDelete }) => {
     setIsOpen(false);
   };
 
-  // Logic: Bấm ra ngoài thì tự đóng menu (Optional nhưng nên có cho UX tốt)
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {

@@ -92,11 +92,31 @@
   .product-info {
     margin-bottom: 24px;
 
-    .product-price {
-      font-size: 20px;
-      font-weight: 800;
-      color: $color-gray-900;
+    .product-price-wrapper {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
       margin-bottom: 8px;
+
+      // Giá hiện tại
+      .product-price {
+        font-size: 20px;
+        font-weight: 800;
+        color: #212429; 
+        transition: color 0.3s ease;
+
+        &.is-discount {
+          color: #FA254C; 
+          font-size: 24px;
+        }
+      }
+
+      .product-price--original {
+        font-size: 16px;
+        color: #ACB5BD; 
+        text-decoration: line-through;
+        font-weight: 500;
+      }
     }
 
     .product-title {
@@ -114,7 +134,7 @@
     }
   }
 
-  // --- DESCRIPTION SECTION ---
+  // --- DESCRIPTION ---
   .product-description {
     margin-top: 24px; 
     padding-bottom: 20px;
