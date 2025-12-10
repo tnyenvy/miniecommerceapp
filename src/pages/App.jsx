@@ -15,7 +15,6 @@ const MyApp = () => {
   const [cartItems, setCartItems] = useState([]); 
   const [favouriteItems, setFavouriteItems] = useState([]);
 
-  // ... (giữ nguyên các hàm updateQuantity, addToCart, removeFromCart, toggleFavourite)
   const updateQuantity = (id, change) => {
     setCartItems(items => items.map(item => {
       if (item.id === id) {
@@ -59,14 +58,12 @@ const MyApp = () => {
         <ZMPRouter>
           <AnimationRoutes>
             
-            {/* TRUYỀN favouriteItems CHO TẤT CẢ CÁC ROUTE BÊN DƯỚI */}
-            
             <Route 
               path="/" 
               element={
                 <HomePage 
                   cartCount={totalItems} 
-                  favouriteItems={favouriteItems} // <--- Thêm dòng này
+                  favouriteItems={favouriteItems} 
                   toggleFavourite={toggleFavourite} 
                 />
               } 
@@ -77,7 +74,7 @@ const MyApp = () => {
               element={
                 <BrowsePage 
                   cartCount={totalItems} 
-                  favouriteItems={favouriteItems} // <--- Thêm dòng này
+                  favouriteItems={favouriteItems} 
                 />
               } 
             />
@@ -113,7 +110,7 @@ const MyApp = () => {
                   updateQuantity={updateQuantity} 
                   removeFromCart={removeFromCart}
                   cartCount={totalItems} 
-                  favouriteItems={favouriteItems} // <--- Thêm dòng này
+                  favouriteItems={favouriteItems} 
                 />
               } 
             />
@@ -135,7 +132,7 @@ const MyApp = () => {
               element={
                 <ProfilePage 
                   cartCount={totalItems} 
-                  favouriteItems={favouriteItems} // <--- Thêm dòng này
+                  favouriteItems={favouriteItems} 
                 />
               } 
             />

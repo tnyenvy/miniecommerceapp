@@ -10,7 +10,7 @@ const CategoryPage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
   const location = useLocation();
   const categoryName = location.state?.categoryName || "Headphones";
 
-  // Danh sách sản phẩm (ID là bắt buộc để Logic hoạt động)
+  // Danh sách sản phẩm 
   const products = [
     {
       id: 101, 
@@ -57,7 +57,6 @@ const CategoryPage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
     },
   ];
 
-  // Helper check
   const checkIsFavorite = (productId) => {
     if (!favouriteItems) return false;
     return favouriteItems.some(item => item.id === productId);
@@ -66,7 +65,6 @@ const CategoryPage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
   return (
     <div className="category-page">
       <div className="category-page__sticky-wrapper">
-         {/* ... (Phần Header, Filter, Sort giữ nguyên code cũ) ... */}
          <div className="category-page__header">
              <button className="icon-btn" onClick={() => navigate(-1)}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
              <h2 className="header-title">{categoryName}</h2>
@@ -91,11 +89,7 @@ const CategoryPage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
             {...product}
             
             isFavorite={checkIsFavorite(product.id)}
-            
-            // --- SỬA QUAN TRỌNG ---
-            // Chỉ truyền arrow function gọi toggleFavourite, KHÔNG CÓ 'e'
             onToggleFavorite={() => toggleFavourite(product)}
-            // ---------------------
             
             onClick={() => navigate('/product', { state: { product } })}
           />

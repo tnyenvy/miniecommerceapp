@@ -131,18 +131,18 @@
 }
 .delete-popup {
   position: absolute;
-  top: 100%;       // Hiển thị ngay bên dưới nút 3 chấm
-  right: 0;        // Canh lề phải thẳng hàng với nút 3 chấm
+  top: 100%;      
+  right: 0;       
   background-color: #fff;
-  color: #ff4d4f;  // Màu đỏ
+  color: #ff4d4f;  
   border: 1px solid #eee;
   padding: 8px 16px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15); // Đổ bóng cho nổi
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  z-index: 10;     // Đảm bảo nổi lên trên các thành phần khác
+  z-index: 10;  
   white-space: nowrap;
   margin-top: 4px;
 

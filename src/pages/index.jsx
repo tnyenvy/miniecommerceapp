@@ -6,11 +6,9 @@ import ProductCard from '../components/ProductCard/ProductCard.jsx';
 import favouriteItems from './FavouritesPage.jsx';
 import '../css/homepage.scss'; 
 
-// Nhận props favouriteItems và toggleFavourite từ App.jsx
 const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
   const navigate = useNavigate();
 
-  // QUAN TRỌNG: Sản phẩm phải có ID để so sánh
   const dealOfTheDay = {
     id: 1, 
     image: '/src/assets/rode-podmic.png', 
@@ -30,7 +28,7 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
       model: 'Model: WH-1000XM4, Black'
     },
     {
-      id: 2, // ID phải khớp với dữ liệu trong App.jsx nếu có sẵn
+      id: 2, 
       image: '/src/assets/sony-headphones-beige.png',
       title: 'SONY Premium Wireless Headphones',
       price: 349.99,
@@ -42,9 +40,7 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
     navigate('/product', { state: { product: product } });
   };
 
-  // Helper để kiểm tra xem sản phẩm đã được like chưa
   const checkIsFavorite = (productId) => {
-    // Thêm kiểm tra an toàn để tránh lỗi nếu favouriteItems chưa sẵn sàng
     if (!favouriteItems) return false;
     return favouriteItems.some(item => item.id === productId);
   };
@@ -64,9 +60,7 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
             <ProductCard
               size="large"
               {...dealOfTheDay}
-              // Truyền trạng thái tim đỏ/trắng
               isFavorite={checkIsFavorite(dealOfTheDay.id)}
-              // Truyền hàm xử lý khi bấm tim
               onToggleFavorite={() => toggleFavourite(dealOfTheDay)}
               onClick={() => handleProductClick(dealOfTheDay)}
             />
@@ -88,9 +82,6 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
                 size="small"
                 {...product}
                 isFavorite={checkIsFavorite(product.id)}
-                
-                // --- ĐÃ SỬA LẠI ĐÚNG BIẾN Ở ĐÂY ---
-                // Trước đó bạn để nhầm là toggleFavourite(dealOfTheDay)
                 onToggleFavorite={() => toggleFavourite(product)}
                 
                 onClick={() => handleProductClick(product)}

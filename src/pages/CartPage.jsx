@@ -61,12 +61,10 @@ const CartPage = ({ cartItems, updateQuantity, removeFromCart, cartCount, favour
       {cartItems.length > 0 && (
         <div className="cart-page__checkout-section">
           
-          {/* --- ĐÃ THÊM LẠI PHẦN SHIPPING TẠI ĐÂY --- */}
           <div className="summary-row">
             <span className="label">Shipping</span>
             <span className="value">$0.00</span>
           </div>
-          {/* ------------------------------------------ */}
 
           <div className="summary-row summary-row--total">
             <span className="label">Total (TVA incl.)</span>

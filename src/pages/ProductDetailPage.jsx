@@ -1,17 +1,16 @@
-import React from 'react'; // Bỏ useState vì không cần nữa
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
 import FavouritesPage from './FavouritesPage.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import '../css/productdetail.scss'; 
 
-// 1. Nhận thêm props: favouriteItems, toggleFavourite, addToCart
 const ProductDetailPage = ({ cartCount, favouriteItems = [], toggleFavourite, addToCart }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const defaultProduct = {
-    id: 999, // Thêm ID giả để tránh lỗi nếu không có dữ liệu
+    id: 999,
     image: '/src/assets/sony-headphones-black.png',
     title: 'SONY Premium Wireless Headphones',
     price: 349.99,
@@ -22,7 +21,6 @@ const ProductDetailPage = ({ cartCount, favouriteItems = [], toggleFavourite, ad
   const currentProduct = location.state?.product || defaultProduct;
   const descriptionToShow = currentProduct.description || defaultProduct.description;
 
-  // 2. Kiểm tra xem sản phẩm hiện tại có trong danh sách yêu thích không
   const isFavorite = favouriteItems.some(item => item.id === currentProduct.id);
 
   return (
@@ -45,20 +43,21 @@ const ProductDetailPage = ({ cartCount, favouriteItems = [], toggleFavourite, ad
           
           <div className="floating-actions">
             
-            {/* NÚT TIM: Gọi toggleFavourite */}
+            {/* NÚT TIM */}
             <button className="action-btn" onClick={() => toggleFavourite(currentProduct)}>
               {isFavorite ? (
-                // Tim đỏ (đã thích)
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="black" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
               ) : (
-                // Tim rỗng (chưa thích)
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
               )}
             </button>
 
-            {/* NÚT ADD TO CART: Gọi addToCart */}
             <button className="action-btn" onClick={() => addToCart(currentProduct)}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
             </button>
           
           </div>
