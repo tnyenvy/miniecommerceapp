@@ -1,5 +1,4 @@
 import React from 'react';
-import StatusBar from '../components/StatusBar/StatusBar.jsx';
 import Footer from '../components/Footer/Footer.jsx'; 
 import '../css/browse.scss'; 
 
@@ -20,8 +19,6 @@ const BrowsePage = ({ onNavigate, onCategoryClick}) => {
 
   return (
     <div className="browse-page">
-      <div className="browse-page__status-placeholder"></div>
-
      {/* --- SEARCH BAR --- */}
       <div className="browse-page__header">
         <div className="search-box">

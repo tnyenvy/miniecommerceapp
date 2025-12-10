@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Footer from '../components/Footer/Footer.jsx';
-import StatusBar from '../components/StatusBar/StatusBar.jsx';
 import '../css/cart.scss';
 
 const CartPage = ({ onNavigate, favouritesCount = 0 }) => {
@@ -62,9 +61,6 @@ const CartPage = ({ onNavigate, favouritesCount = 0 }) => {
 
   return (
     <div className="cart-page">
-      <StatusBar />
-      <div className="cart-page__status-placeholder"></div>
-
       {/* --- HEADER --- */}
       <div className="cart-page__header">
         <h2 className="header-title">Cart</h2>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Footer from '../components/Footer/Footer.jsx';
-import StatusBar from '../components/StatusBar/StatusBar.jsx';
 import '../css/productdetail.scss'; 
 
 const ProductDetailPage = ({ product, onBack, onNavigate }) => {
@@ -20,9 +19,6 @@ const ProductDetailPage = ({ product, onBack, onNavigate }) => {
 
   return (
     <div className="product-detail-page">
-      <StatusBar />
-      <div className="product-detail-page__status-placeholder"></div>
-
       {/* --- HEADER --- */}
       <div className="product-detail-page__header">
         <button className="icon-btn" onClick={onBack}>

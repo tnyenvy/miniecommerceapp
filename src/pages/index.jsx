@@ -2,7 +2,6 @@ import React from 'react';
 import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
-import StatusBar from '../components/StatusBar/StatusBar.jsx'; // Nhớ import StatusBar nếu đã tách
 import '../css/homepage.scss'; 
 
 const HomePage = ({ onNavigate, onProductClick }) => {
@@ -33,8 +32,6 @@ const HomePage = ({ onNavigate, onProductClick }) => {
 
   return (
     <div className="homepage">
-      <StatusBar />
-      
       <Header userName="Michael" />
       
       <main className="homepage__content">

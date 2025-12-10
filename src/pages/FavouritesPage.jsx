@@ -1,6 +1,5 @@
 import React from 'react';
 import Footer from '../components/Footer/Footer.jsx';
-import StatusBar from '../components/StatusBar/StatusBar.jsx';
 import '../css/favourites.scss';
 
 const FavouritesPage = ({ onNavigate }) => {
@@ -53,9 +52,6 @@ const FavouritesPage = ({ onNavigate }) => {
 
   return (
     <div className="favourites-page">
-      <StatusBar />
-      <div style={{ height: '44px' }}></div>
-
       {/* --- HEADER --- */}
       <div className="favourites-page__header">
         <h2 className="header-title">Favourites</h2>

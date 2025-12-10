@@ -1,11 +1,9 @@
 import React from 'react';
 import './Header.scss';
-import StatusBar from '../StatusBar/StatusBar.jsx';
 
 const Header = ({ userName = 'Michael' }) => {
-
   return (
-    <header className="header"> <StatusBar />
+    <header className="header">
       <h1 className="header__greeting">Hello {userName}</h1>
       
       <nav className="header__nav">

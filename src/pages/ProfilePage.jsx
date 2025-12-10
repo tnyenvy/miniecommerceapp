@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Footer from '../components/Footer/Footer.jsx';
-import StatusBar from '../components/StatusBar/StatusBar.jsx';
 import '../css/profile.scss';
 
 const ProfilePage = ({ onNavigate, cartCount }) => {
@@ -32,9 +31,6 @@ const ProfilePage = ({ onNavigate, cartCount }) => {
 
   return (
     <div className="profile-page">
-      <StatusBar />
-      <div className="profile-page__status-placeholder"></div>
-
       <div className="profile-page__header">
         <h2 className="header-title">My Profile</h2>
       </div>

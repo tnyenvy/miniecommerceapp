@@ -1,5 +1,4 @@
 import React from 'react';
-import StatusBar from '../components/StatusBar/StatusBar.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
 import '../css/category.scss';
@@ -48,9 +47,6 @@ const CategoryPage = ({ categoryName = "Headphones", onBack, onNavigate, onProdu
   return (
     <div className="category-page">
       <div className="category-page__sticky-wrapper">
-        <StatusBar /> 
-        <div className="category-page__status-placeholder"></div>
-
         {/* --- HEADER --- */}
         <div className="category-page__header">
           <button className="icon-btn" onClick={onBack}>
