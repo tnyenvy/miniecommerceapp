@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { getSystemInfo } from "zmp-sdk";
 import { App, ZMPRouter, AnimationRoutes, SnackbarProvider } from "zmp-ui"; 
@@ -12,8 +12,20 @@ import FavouritesPage from './FavouritesPage.jsx';
 import ProfilePage from './ProfilePage.jsx'; 
 
 const MyApp = () => {
-  const [cartItems, setCartItems] = useState([]); 
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem("cartItems");
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Lỗi đọc localStorage:", error);
+      return [];
+    }
+  });
+  
   const [favouriteItems, setFavouriteItems] = useState([]);
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]); 
 
   const updateQuantity = (id, change) => {
     setCartItems(items => items.map(item => {
