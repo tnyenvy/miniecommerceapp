@@ -1,31 +1,47 @@
 import React from 'react';
+import { Tabs } from 'zmp-ui';
 import './Header.scss';
 
 const Header = ({ userName = 'Michael', activeTab, onTabChange }) => {
   
-  // Danh sách các tab
   const tabs = [
-    { id: 'all', label: 'All' },
-    { id: 'audio', label: 'Audio' },
-    { id: 'drones', label: 'Drones + Electronics' },
-    { id: 'photo', label: 'Photo + Video' }
+    { key: 'all', label: 'All' },
+    { key: 'audio', label: 'Audio' },
+    { key: 'drones', label: 'Drones + Electronics' },
+    { key: 'photo', label: 'Photo + Video' }
   ];
+
+  const renderTabBar = () => {
+    return (
+      <div className="custom-tab-bar">
+        {tabs.map(tab => (
+          <button
+            key={tab.key}
+            className={`custom-tab-bar__item ${activeTab === tab.key ? 'custom-tab-bar__item--active' : ''}`}
+            onClick={() => onTabChange(tab.key)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <header className="header">
       <h1 className="header__greeting">Hello {userName}</h1>
       
-      <nav className="header__nav">
-        {tabs.map(tab => (
-          <button 
-            key={tab.id}
-            className={`header__nav-item ${activeTab === tab.id ? 'header__nav-item--active' : ''}`}
-            onClick={() => onTabChange(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </nav>
+      <Tabs 
+        id="header-tabs"
+        activeKey={activeTab}
+        onChange={(key) => onTabChange(key)}
+        renderTabBar={renderTabBar}
+      >
+        <Tabs.Tab key="all" />
+        <Tabs.Tab key="audio" />
+        <Tabs.Tab key="drones" />
+        <Tabs.Tab key="photo" />
+      </Tabs>
     </header>
   );
 };

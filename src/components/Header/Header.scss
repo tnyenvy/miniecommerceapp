@@ -1,4 +1,7 @@
-h1 { margin: 0; padding: 0; }
+h1 { 
+  margin: 0; 
+  padding: 0; 
+}
 
 .header {
   padding: 0; 
@@ -13,20 +16,27 @@ h1 { margin: 0; padding: 0; }
     margin: 0 20px 24px 20px; 
     letter-spacing: -0.5px;
   }
+}
+
+#header-tabs {
+  .zaui-tabs-content {
+    display: none;
+  }
+}
+
+// Custom Tab Bar
+.custom-tab-bar {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding: 0 20px;
+  border-bottom: 1px solid #f0f0f0;
   
-  &__nav {
-    display: flex;
-    gap: 24px;
-    overflow-x: auto;
-    padding: 0 20px;
-    border-bottom: 1px solid #f0f0f0;
-    
-    &::-webkit-scrollbar {
-      display: none;
-    }
+  &::-webkit-scrollbar {
+    display: none;
   }
   
-  &__nav-item {
+  &__item {
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 500;
@@ -37,7 +47,11 @@ h1 { margin: 0; padding: 0; }
     white-space: nowrap;
     cursor: pointer;
     position: relative;
-    transition: color 0.2s ease;
+    transition: color 0.3s ease;
+    
+    &:hover:not(&--active) {
+      color: #666;
+    }
     
     &--active {
       color: #212429;
@@ -52,7 +66,19 @@ h1 { margin: 0; padding: 0; }
         height: 3px;
         background-color: #212429;
         border-radius: 2px 2px 0 0;
+        animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 }
