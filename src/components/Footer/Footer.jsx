@@ -42,7 +42,6 @@ const Footer = ({ cartCount = 0, favouriteCount = 0 }) => {
           );
         })}
       </div>
-      <div className="footer__indicator"></div>
     </footer>
   );
 };
