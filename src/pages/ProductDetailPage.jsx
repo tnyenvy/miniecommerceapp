@@ -1,36 +1,43 @@
-import React from 'react'; 
+import React, { useEffect } from 'react'; 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'zmp-ui'; 
+import { useGlobalState } from '../state/GlobalState.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import '../css/productdetail.scss'; 
 
-const ProductDetailPage = ({ cartCount, favouriteItems = [], toggleFavourite, addToCart }) => {
+const ProductDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // 2. Khởi tạo snackbar
   const { openSnackbar } = useSnackbar();
+
+  // Lấy dữ liệu từ Global-Store 
+  const { addToCart, toggleFavourite, favouriteItems, cartItems } = useGlobalState();
+
+  // số lượng sp
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const defaultProduct = {
     id: 999,
-    image: '/src/assets/sony-headphones-black.png',
-    title: 'SONY Premium Wireless Headphones',
-    price: 349.99,
-    originalPrice: 450.00, 
-    model: 'Model: WH-1000XM4, Black',
-    description: 'The technology with two noise sensors and two microphones on each ear cup detects ambient noise and sends the data to the HD noise minimization processor QN1.'
+    image: '/src/assets/sony-headphones-black.png', 
+    title: 'Product Not Found',
+    price: 0,
+    originalPrice: 0, 
+    model: 'N/A',
+    description: 'No description available.'
   };
 
   const currentProduct = location.state?.product || defaultProduct;
   const descriptionToShow = currentProduct.description || defaultProduct.description;
+  
   const isFavorite = favouriteItems.some(item => item.id === currentProduct.id);
+  
   const hasDiscount = currentProduct.originalPrice && (currentProduct.originalPrice > currentProduct.price);
 
-  // --- HÀM XỬ LÝ THÊM VÀO GIỎ HÀNG  ---
+  // --- THÊM VÀO GIỎ HÀNG ---
   const handleAddToCart = () => {
     addToCart(currentProduct); 
     
-    // Gọi Snackbar của Zalo
+    // Snackbar của Zalo
     openSnackbar({
       icon: true, 
       text: "Added to cart successfully!",
@@ -57,7 +64,12 @@ const ProductDetailPage = ({ cartCount, favouriteItems = [], toggleFavourite, ad
 
       <div className="product-detail-page__content">
         <div className="product-image-container">
-          <img src={currentProduct.image} alt={currentProduct.title} className="product-image" />
+          <img 
+            src={currentProduct.image} 
+            alt={currentProduct.title} 
+            className="product-image" 
+            onError={(e) => { e.target.src = '/src/assets/sony-headphones-black.png' }} // Fallback nếu lỗi ảnh
+          />
           <div className="floating-actions">
             <button className="action-btn" onClick={() => toggleFavourite(currentProduct)}>
               {isFavorite ? (

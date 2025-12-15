@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'zmp-ui';
-import { Swiper } from 'zmp-ui';
+import React, { useState, useRef } from 'react';
+import { Page, Swiper, useNavigate } from 'zmp-ui';
 import Header from '../components/Header/Header.jsx';
-import Footer from '../components/Footer/Footer.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
+import { useGlobalState } from '../state/GlobalState.jsx';
 import '../css/homepage.scss'; 
 
-const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
+const HomePage = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('all');
-  const [activeIndex, setActiveIndex] = useState(0); 
+  const [activeIndex, setActiveIndex] = useState(0);
+  const swiperRef = useRef(null);
+
+  // Lấy dữ liệu từ Global State
+  const { favouriteItems, toggleFavourite } = useGlobalState();
 
   // Deals of the day 
   const deals = [
@@ -86,19 +89,18 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
   };
 
   const checkIsFavorite = (productId) => {
-    if (!favouriteItems) return false;
     return favouriteItems.some(item => item.id === productId);
   };
 
   return (
-    <div className="homepage">
+    <Page className="homepage">
       <Header 
         userName="Michael" 
         activeTab={activeTab} 
         onTabChange={setActiveTab} 
       />
       
-      <main className="homepage__content">
+      <div className="homepage__content">
         <section className="homepage__section">
           <div className="homepage__section-header">
             <h2 className="homepage__section-title">Deals of the day</h2>
@@ -107,9 +109,11 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
           
           <div className="homepage__deals">
             <Swiper 
+              ref={swiperRef}
               autoplay 
               loop 
-              duration={3500}
+              duration={3000}
+              dots={false}  // Tắt dots mặc định 
               afterChange={(index) => setActiveIndex(index)}
             >
               {deals.map((deal) => (
@@ -126,11 +130,17 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
             </Swiper>
           </div>
 
+          {/* Slide Indicators - Custom */}
           <div className="slide-indicators">
             {deals.map((_, index) => (
               <span 
                 key={index}
                 className={`slide-indicators__dot ${index === activeIndex ? 'slide-indicators__dot--active' : ''}`}
+                onClick={() => {
+                   if(swiperRef.current && swiperRef.current.swiper) {
+                     swiperRef.current.swiper.slideToLoop(index);
+                   }
+                }}
               ></span>
             ))}
           </div>
@@ -139,10 +149,7 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
         <section className="homepage__section">
           <h2 className="homepage__section-title">Recommended for you</h2>
           
-          <div 
-            className="homepage__recommended fade-in-up" 
-            key={activeTab} 
-          >
+          <div className="homepage__recommended fade-in-up" key={activeTab}>
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product, index) => (
                 <ProductCard
@@ -159,10 +166,9 @@ const HomePage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
             )}
           </div>
         </section>
-      </main>
+      </div>
       
-      <Footer cartCount={cartCount} favouriteCount={favouriteItems.length} />
-    </div>
+    </Page>
   );
 };
 

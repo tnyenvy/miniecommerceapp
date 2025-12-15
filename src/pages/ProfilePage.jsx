@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'zmp-ui';
-import Footer from '../components/Footer/Footer.jsx';
-import favouriteItems from './FavouritesPage.jsx';
+import { Page, useNavigate, useSnackbar } from 'zmp-ui';
 import '../css/profile.scss';
 
-const ProfilePage = ({ cartCount, favouriteItems = [] }) => {
+const ProfilePage = () => {
   const navigate = useNavigate();
+  const { openSnackbar } = useSnackbar(); 
 
   const [userInfo, setUserInfo] = useState({
     name: 'Michael',
     phone: '+84 123 456 789',
     email: 'michael.design@gmail.com',
     address: '123 Hoang Dieu 2, Thu Duc, HCMC',
-    avatar: 'https://i.pinimg.com/736x/51/27/c8/5127c87d49c5075a462ea50fe55fb710.jpg'
+    avatar: 'https://i.pinimg.com/1200x/2e/fa/d2/2efad233e58a83d3c11796d281333d11.jpg'
   });
 
   const handleChange = (e) => {
@@ -21,23 +20,38 @@ const ProfilePage = ({ cartCount, favouriteItems = [] }) => {
   };
 
   const handleAvatarChange = () => {
-    alert('Open Camera/Gallery');
+    openSnackbar({
+      icon: true,
+      text: "Awaiting avatar change feature...",
+      type: "info",
+      duration: 3000,
+    });
   };
 
   const handleSave = () => {
     console.log("Saving info:", userInfo);
-    alert('Saved successfully!');
+    openSnackbar({
+      icon: true,
+      text: "Saved info successfully!",
+      type: "success", 
+      duration: 3000,
+    });
   };
 
   const handleLogout = () => {
-    // Đăng xuất 
-    alert('Logging out...');
-    // Điều hướng về trang chủ
-    navigate('/');
+    openSnackbar({
+      icon: true,
+      text: "Logging out...",
+      type: "warning",
+    });
+    
+    setTimeout(() => {
+        navigate('/');
+    }, 1000);
   };
 
   return (
-    <div className="profile-page">
+    <Page className="profile-page">
       <div className="profile-page__header">
         <h2 className="header-title">My Profile</h2>
       </div>
@@ -46,32 +60,57 @@ const ProfilePage = ({ cartCount, favouriteItems = [] }) => {
         
         {/* AVATAR */}
         <div className="avatar-section">
-          <img src={userInfo.avatar} alt="Avatar" className="avatar-section__image" />
-          <button className="avatar-section__camera-btn" onClick={handleAvatarChange}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                <circle cx="12" cy="13" r="4"></circle>
+          <div className="avatar-wrapper">
+             <img src={userInfo.avatar} alt="Avatar" className="avatar-section__image" />
+             <button className="avatar-section__camera-btn" onClick={handleAvatarChange}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
                 </svg>
-          </button>
+             </button>
+          </div>
         </div> 
 
         {/* FORM */}
         <div className="profile-form">
           <div className="form-group">
             <label>Full Name</label>
-            <input type="text" name="name" value={userInfo.name} onChange={handleChange} />
+            <input 
+                type="text" 
+                name="name" 
+                value={userInfo.name} 
+                onChange={handleChange} 
+                placeholder="Enter your name"
+            />
           </div>
           <div className="form-group">
             <label>Phone Number</label>
-            <input type="tel" name="phone" value={userInfo.phone} onChange={handleChange} />
+            <input 
+                type="tel" 
+                name="phone" 
+                value={userInfo.phone} 
+                onChange={handleChange} 
+                placeholder="Enter phone number"
+            />
           </div>
           <div className="form-group">
             <label>Email (Cannot be changed)</label>
-            <input type="email" value={userInfo.email} disabled={true} />
+            <input 
+                type="email" 
+                value={userInfo.email} 
+                disabled={true} 
+                className="input-disabled"
+            />
           </div>
           <div className="form-group">
             <label>Address</label>
-            <input type="text" name="address" value={userInfo.address} onChange={handleChange} />
+            <input 
+                type="text" 
+                name="address" 
+                value={userInfo.address} 
+                onChange={handleChange} 
+                placeholder="Enter address"
+            />
           </div>
         </div>
 
@@ -82,20 +121,18 @@ const ProfilePage = ({ cartCount, favouriteItems = [] }) => {
           </button>
 
           <button className="btn-action btn-action--secondary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 8}}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
             Reset Password
           </button>
           
           <button className="btn-action btn-action--logout" onClick={handleLogout}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 8}}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
             Log out
           </button>
         </div>
 
       </div>
-
-      <Footer cartCount={cartCount} favouriteCount={favouriteItems.length} />
-    </div>
+    </Page>
   );
 };
 

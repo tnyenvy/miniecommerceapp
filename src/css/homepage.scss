@@ -45,21 +45,28 @@
 
   &__deals {
     width: 100%;
- 
+    
+    .zaui-swiper {
+        padding-bottom: 10px; 
+    }
+
     .zaui-swiper-slide {
-       height: auto; 
+      height: auto; 
+      display: none;    
+      justify-content: center;
     }
   }
   
   &__recommended {
-      display: grid; 
-      grid-template-columns: repeat(2, 1fr); 
-      gap: 16px;
-      padding-bottom: 4px;
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 16px;
+    padding-bottom: 4px;
   }
 
   .product-card {
-    &__model, &__description {
+    &__model,
+    &__description {
       white-space: normal; 
       display: -webkit-box;
       -webkit-line-clamp: 2; 
@@ -85,7 +92,7 @@
     height: 4px;
     border-radius: 5px;
     background-color: #E0E0E0; 
-    transition: all 0.2s ease; 
+    transition: width 0.5s ease, background-color 0.5s ease; 
     cursor: pointer;
 
     &--active {

@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'zmp-ui';
-import Footer from '../components/Footer/Footer.jsx';
 import CartItem from '../components/CartItem/CartItem.jsx';
+import { useGlobalState } from '../state/GlobalState.jsx';
 import '../css/cart.scss'; 
 
-const CartPage = ({ cartItems, updateQuantity, removeFromCart, cartCount, favouriteItems = [] }) => {
+const CartPage = () => {
   const navigate = useNavigate();
+  // Lấy dữ liệu và hàm từ Global State
+  const { cartItems, updateQuantity, removeFromCart } = useGlobalState();
 
   const totalAmount = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const paymentIcons = ['paypal.png', 'visa.png', 'mastercard.png', 'ggpay.png', 'applepay.png', 'amex.png'];
@@ -68,8 +70,6 @@ const CartPage = ({ cartItems, updateQuantity, removeFromCart, cartCount, favour
           </div>
         </div>
       )}
-
-      <Footer cartCount={cartCount} favouriteCount={favouriteItems.length} />
     </div>
   );
 };

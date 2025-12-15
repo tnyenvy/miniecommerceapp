@@ -1,14 +1,16 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Footer from '../components/Footer/Footer.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
-import FavouritesPage from './FavouritesPage.jsx';
+import { useGlobalState } from '../state/GlobalState.jsx'; 
 import '../css/category.scss';
 
-const CategoryPage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
+const CategoryPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const categoryName = location.state?.categoryName || "Headphones";
+  
+  // Lấy dữ liệu từ Global State
+  const { favouriteItems, toggleFavourite } = useGlobalState();
 
   const products = [
     {
@@ -57,7 +59,6 @@ const CategoryPage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
   ];
 
   const checkIsFavorite = (productId) => {
-    if (!favouriteItems) return false;
     return favouriteItems.some(item => item.id === productId);
   };
 
@@ -117,8 +118,6 @@ const CategoryPage = ({ cartCount, favouriteItems = [], toggleFavourite }) => {
           />
         ))}
       </div>
-
-      <Footer cartCount={cartCount} favouriteCount={favouriteItems.length} />
     </div>
   );
 };

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'zmp-ui';
-import Footer from '../components/Footer/Footer.jsx'; 
-import favouriteItems from './FavouritesPage.jsx';
 import '../css/browse.scss'; 
 
-const BrowsePage = ({ cartCount, favouriteItems = [] }) => {
+const BrowsePage = () => {
   const navigate = useNavigate();
   
   const categories = [
@@ -44,8 +42,6 @@ const BrowsePage = ({ cartCount, favouriteItems = [] }) => {
           </div>
         ))}
       </div>
-
-      <Footer cartCount={cartCount} favouriteCount={favouriteItems.length} />
     </div>
   );
 };
