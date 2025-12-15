@@ -1,6 +1,7 @@
 // React core
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { SnackbarProvider } from "zmp-ui"; 
 
 // ZaUI stylesheet
 import "zmp-ui/zaui.css";
@@ -22,4 +23,10 @@ if (!window.APP_CONFIG) {
 // Mount the app
 const root = createRoot(document.getElementById("app"));
 
-root.render(React.createElement(App));
+root.render(
+  React.createElement(
+    SnackbarProvider,
+    null,
+    React.createElement(App, null)
+  )
+);

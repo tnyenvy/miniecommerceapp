@@ -35,7 +35,6 @@ const MyApp = () => {
       }
       return [...prevItems, { ...product, quantity: 1 }];
     });
-    alert("Added to Cart!");
   };
 
   const removeFromCart = (id) => {

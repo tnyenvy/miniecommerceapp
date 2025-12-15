@@ -1,11 +1,25 @@
 import React from 'react';
-import { useNavigate } from 'zmp-ui';
+import { useNavigate, useSnackbar } from 'zmp-ui'; // 1. Import useSnackbar
 import Footer from '../components/Footer/Footer.jsx';
 import FavouriteItem from '../components/FavouriteItem/FavouriteItem.jsx'; 
 import '../css/favourites.scss'; 
 
 const FavouritesPage = ({ favouriteItems, addToCart, removeFavourite, cartCount }) => {
   const navigate = useNavigate();
+  const { openSnackbar } = useSnackbar(); // 2. Khởi tạo Snackbar
+
+  // 3. Hàm xử lý: Thêm vào giỏ + Hiện thông báo
+  const handleAddToCart = (item) => {
+    addToCart(item); // Gọi hàm gốc từ App.jsx
+    
+    // Hiện thông báo Zalo
+    openSnackbar({
+      icon: true,
+      text: "Added to cart successfully!",
+      type: "success",
+      duration: 3000,
+    });
+  };
 
   return (
     <div className="favourites-page">
@@ -29,7 +43,8 @@ const FavouritesPage = ({ favouriteItems, addToCart, removeFavourite, cartCount 
             <FavouriteItem 
               key={item.id} 
               item={item} 
-              onAddToCart={addToCart} 
+              // 4. Truyền hàm handleAddToCart thay vì addToCart gốc
+              onAddToCart={() => handleAddToCart(item)} 
               onRemove={removeFavourite} 
             />
           ))
