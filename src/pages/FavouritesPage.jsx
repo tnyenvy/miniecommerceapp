@@ -1,15 +1,18 @@
 import React from 'react';
 import { useNavigate, useSnackbar } from 'zmp-ui';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { favouriteItemsAtom, addToCartAtom, toggleFavouriteAtom } from '../state/store.js';
 import FavouriteItem from '../components/FavouriteItem/FavouriteItem.jsx'; 
-import { useGlobalState } from '../state/GlobalState.jsx';
 import '../css/favourites.scss'; 
 
 const FavouritesPage = () => {
   const navigate = useNavigate();
   const { openSnackbar } = useSnackbar();
 
-  // Lấy dữ liệu và hàm từ Global State
-  const { favouriteItems, addToCart, toggleFavourite } = useGlobalState();
+  // --- JOTAI HOOKS ---
+  const favouriteItems = useAtomValue(favouriteItemsAtom);
+  const addToCart = useSetAtom(addToCartAtom);
+  const toggleFavourite = useSetAtom(toggleFavouriteAtom);
 
   const handleAddToCart = (item) => {
     addToCart(item); 
@@ -29,11 +32,20 @@ const FavouritesPage = () => {
 
       <div className="favourites-page__content">
         {favouriteItems.length === 0 ? (
-          <div style={{ textAlign: 'center', marginTop: 50, color: '#999' }}>
+          <div style={{ 
+            textAlign: 'center', 
+            marginTop: 50, 
+            color: '#999' }}>
             <p>No favourite items yet.</p>
             <button 
               onClick={() => navigate('/browse')}
-              style={{ marginTop: 10, padding: '8px 16px', background: '#212429', color: '#fff', border: 'none', borderRadius: 8 }}
+              style={{ 
+                marginTop: 10, 
+                padding: '8px 16px', 
+                background: '#212429', 
+                color: '#fff', 
+                border: 'none', 
+                borderRadius: 8 }}
             >
               Start Shopping
             </button>

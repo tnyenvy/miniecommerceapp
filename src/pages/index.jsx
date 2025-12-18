@@ -1,20 +1,23 @@
 import React, { useState, useRef } from 'react';
 import { Page, Swiper, useNavigate } from 'zmp-ui';
+import { useAtomValue, useSetAtom } from 'jotai'; 
+import { favouriteItemsAtom, toggleFavouriteAtom, userInfoAtom } from '../state/store.js';
 import Header from '../components/Header/Header.jsx';
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
-import { useGlobalState } from '../state/GlobalState.jsx';
 import '../css/homepage.scss'; 
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('all');
-  const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
 
-  // Lấy dữ liệu từ Global State
-  const { favouriteItems, toggleFavourite } = useGlobalState();
+  const [activeTab, setActiveTab] = useState('all');
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Deals of the day 
+  // --- JOTAI HOOKS ---
+  const favouriteItems = useAtomValue(favouriteItemsAtom);
+  const toggleFavourite = useSetAtom(toggleFavouriteAtom);
+  const userInfo = useAtomValue(userInfoAtom);
+
   const deals = [
     {
       id: 1, 
@@ -80,6 +83,7 @@ const HomePage = () => {
     }
   ];
 
+  // Lọc sản phẩm dựa trên activeTab (State cục bộ)
   const filteredProducts = activeTab === 'all' 
     ? allProducts 
     : allProducts.filter(product => product.category === activeTab);
@@ -88,6 +92,7 @@ const HomePage = () => {
     navigate('/product', { state: { product: product } });
   };
 
+  // Check favorite dùng dữ liệu từ Jotai
   const checkIsFavorite = (productId) => {
     return favouriteItems.some(item => item.id === productId);
   };
@@ -95,12 +100,14 @@ const HomePage = () => {
   return (
     <Page className="homepage">
       <Header 
-        userName="Michael" 
+        userName={userInfo.name} 
         activeTab={activeTab} 
         onTabChange={setActiveTab} 
       />
       
       <div className="homepage__content">
+        
+        {/* DEALS OF THE DAY*/}
         <section className="homepage__section">
           <div className="homepage__section-header">
             <h2 className="homepage__section-title">Deals of the day</h2>
@@ -113,7 +120,7 @@ const HomePage = () => {
               autoplay 
               loop 
               duration={3000}
-              dots={false}  // Tắt dots mặc định 
+              dots={false}
               afterChange={(index) => setActiveIndex(index)}
             >
               {deals.map((deal) => (
@@ -122,7 +129,7 @@ const HomePage = () => {
                     size="large"
                     {...deal}
                     isFavorite={checkIsFavorite(deal.id)}
-                    onToggleFavorite={() => toggleFavourite(deal)}
+                    onToggleFavorite={() => toggleFavourite(deal)} // Gọi action Jotai
                     onClick={() => handleProductClick(deal)}
                   />
                 </Swiper.Slide>
@@ -130,7 +137,7 @@ const HomePage = () => {
             </Swiper>
           </div>
 
-          {/* Slide Indicators - Custom */}
+          {/* Slide Indicators */}
           <div className="slide-indicators">
             {deals.map((_, index) => (
               <span 
@@ -146,6 +153,7 @@ const HomePage = () => {
           </div>
         </section>
 
+        {/* RECOMMENDED */}
         <section className="homepage__section">
           <h2 className="homepage__section-title">Recommended for you</h2>
           
@@ -157,12 +165,14 @@ const HomePage = () => {
                   size="small"
                   {...product}
                   isFavorite={checkIsFavorite(product.id)}
-                  onToggleFavorite={() => toggleFavourite(product)}
+                  onToggleFavorite={() => toggleFavourite(product)} // Gọi action Jotai
                   onClick={() => handleProductClick(product)}
                 />
               ))
             ) : (
-              <p style={{color: '#999', gridColumn: 'span 2'}}>No products found in this category yet.</p>
+              <p style={{color: '#999', gridColumn: 'span 2', textAlign: 'center', padding: '20px'}}>
+                No products found in this category.
+              </p>
             )}
           </div>
         </section>

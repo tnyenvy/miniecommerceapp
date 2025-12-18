@@ -20,7 +20,7 @@
     "deploy": "zmp deploy"
   },
   "dependencies": {
-    "jotai": "^2.12.1",
+    "jotai": "^2.16.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "zmp-sdk": "latest",

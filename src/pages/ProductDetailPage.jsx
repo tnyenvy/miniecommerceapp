@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'; 
+import React from 'react'; 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'zmp-ui'; 
-import { useGlobalState } from '../state/GlobalState.jsx';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { cartItemsAtom, addToCartAtom, favouriteItemsAtom, toggleFavouriteAtom } from '../state/store.js';
+
 import Footer from '../components/Footer/Footer.jsx';
 import '../css/productdetail.scss'; 
 
@@ -10,10 +12,13 @@ const ProductDetailPage = () => {
   const location = useLocation();
   const { openSnackbar } = useSnackbar();
 
-  // Lấy dữ liệu từ Global-Store 
-  const { addToCart, toggleFavourite, favouriteItems, cartItems } = useGlobalState();
+  // --- JOTAI HOOKS ---
+  const cartItems = useAtomValue(cartItemsAtom);
+  const favouriteItems = useAtomValue(favouriteItemsAtom);
+  const addToCart = useSetAtom(addToCartAtom);
+  const toggleFavourite = useSetAtom(toggleFavouriteAtom);
 
-  // số lượng sp
+  // Tính tổng số lượng sản phẩm trong giỏ
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const defaultProduct = {
@@ -30,7 +35,6 @@ const ProductDetailPage = () => {
   const descriptionToShow = currentProduct.description || defaultProduct.description;
   
   const isFavorite = favouriteItems.some(item => item.id === currentProduct.id);
-  
   const hasDiscount = currentProduct.originalPrice && (currentProduct.originalPrice > currentProduct.price);
 
   // --- THÊM VÀO GIỎ HÀNG ---
@@ -68,14 +72,18 @@ const ProductDetailPage = () => {
             src={currentProduct.image} 
             alt={currentProduct.title} 
             className="product-image" 
-            onError={(e) => { e.target.src = '/src/assets/sony-headphones-black.png' }} // Fallback nếu lỗi ảnh
+            onError={(e) => { e.target.src = '/src/assets/sony-headphones-black.png' }} 
           />
           <div className="floating-actions">
             <button className="action-btn" onClick={() => toggleFavourite(currentProduct)}>
               {isFavorite ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="black" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="black" stroke="none">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
               ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
               )}
             </button>
             

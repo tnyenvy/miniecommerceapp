@@ -18,7 +18,9 @@ const Footer = ({ cartCount = 0, favouriteCount = 0 }) => {
     <footer className="footer">
       <div className="footer__nav">
         {navItems.map((item, index) => {
-          const isActive = location.pathname === item.path;
+          const isActive = item.path === '/' 
+            ? location.pathname === '/' 
+            : location.pathname.startsWith(item.path);
 
           return (
             <button 
@@ -31,6 +33,7 @@ const Footer = ({ cartCount = 0, favouriteCount = 0 }) => {
                   src={`/src/assets/${item.icon}`} 
                   alt={item.label}
                   className="footer__icon"
+                  onError={(e) => e.target.style.display = 'none'}
                 />
                 {/* Chỉ hiện badge nếu có số lượng > 0 */}
                 {item.badge > 0 && (

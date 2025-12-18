@@ -16,7 +16,11 @@ const CartItem = ({ item, updateQuantity, onRemove }) => {
         className="cart-item__image-wrapper"
         onClick={() => navigate('/product', { state: { product: item } })}
       >
-        <img src={item.image} alt={item.title} />
+        <img 
+            src={item.image} 
+            alt={item.title} 
+            onError={(e) => e.target.src = 'https://via.placeholder.com/80'} // Fallback nếu ảnh lỗi
+        />
       </div>
 
       {/* THÔNG TIN */}
@@ -45,7 +49,7 @@ const CartItem = ({ item, updateQuantity, onRemove }) => {
       <div className="cart-item__controls">
         <button 
           className="qty-btn qty-btn--minus" 
-          onClick={() => updateQuantity(item.id, -1)}
+          onClick={() => updateQuantity(item.id, item.quantity - 1)}
           disabled={item.quantity <= 1}
         > - </button>
         
@@ -53,7 +57,7 @@ const CartItem = ({ item, updateQuantity, onRemove }) => {
         
         <button 
           className="qty-btn qty-btn--plus" 
-          onClick={() => updateQuantity(item.id, 1)}
+          onClick={() => updateQuantity(item.id, item.quantity + 1)}
         > + </button>
       </div>
 

@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Page, useNavigate, useSnackbar } from 'zmp-ui';
+import { useAtom } from 'jotai';
+import { userInfoAtom } from '../state/store.js';
 import '../css/profile.scss';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const { openSnackbar } = useSnackbar(); 
+  const { openSnackbar } = useSnackbar();
 
-  const [userInfo, setUserInfo] = useState({
-    name: 'Michael',
-    phone: '+84 123 456 789',
-    email: 'michael.design@gmail.com',
-    address: '123 Hoang Dieu 2, Thu Duc, HCMC',
-    avatar: 'https://i.pinimg.com/1200x/2e/fa/d2/2efad233e58a83d3c11796d281333d11.jpg'
-  });
+  const [userInfo, setUserInfo] = useAtom(userInfoAtom);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
+  };
+
+  const handleSave = () => {
+    console.log("Saving info to Atom:", userInfo);
+    openSnackbar({
+      icon: true,
+      text: "Saved Successfully!",
+      type: "success", 
+      duration: 3000,
+    });
   };
 
   const handleAvatarChange = () => {
@@ -24,16 +30,6 @@ const ProfilePage = () => {
       icon: true,
       text: "Awaiting avatar change feature...",
       type: "info",
-      duration: 3000,
-    });
-  };
-
-  const handleSave = () => {
-    console.log("Saving info:", userInfo);
-    openSnackbar({
-      icon: true,
-      text: "Saved info successfully!",
-      type: "success", 
       duration: 3000,
     });
   };
@@ -75,42 +71,19 @@ const ProfilePage = () => {
         <div className="profile-form">
           <div className="form-group">
             <label>Full Name</label>
-            <input 
-                type="text" 
-                name="name" 
-                value={userInfo.name} 
-                onChange={handleChange} 
-                placeholder="Enter your name"
-            />
+            <input type="text" name="name" value={userInfo.name} onChange={handleChange} placeholder="Enter your name"/>
           </div>
           <div className="form-group">
             <label>Phone Number</label>
-            <input 
-                type="tel" 
-                name="phone" 
-                value={userInfo.phone} 
-                onChange={handleChange} 
-                placeholder="Enter phone number"
-            />
+            <input type="tel" name="phone" value={userInfo.phone} onChange={handleChange} placeholder="Enter phone number"/>
           </div>
           <div className="form-group">
-            <label>Email (Cannot be changed)</label>
-            <input 
-                type="email" 
-                value={userInfo.email} 
-                disabled={true} 
-                className="input-disabled"
-            />
+            <label>Email</label>
+            <input type="email" value={userInfo.email} disabled={true} />
           </div>
           <div className="form-group">
             <label>Address</label>
-            <input 
-                type="text" 
-                name="address" 
-                value={userInfo.address} 
-                onChange={handleChange} 
-                placeholder="Enter address"
-            />
+            <input type="text" name="address" value={userInfo.address} onChange={handleChange} placeholder="Enter address"/>
           </div>
         </div>
 
@@ -121,12 +94,19 @@ const ProfilePage = () => {
           </button>
 
           <button className="btn-action btn-action--secondary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 8}}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 8}}>
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
             Reset Password
           </button>
           
           <button className="btn-action btn-action--logout" onClick={handleLogout}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 8}}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 8}}>
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
             Log out
           </button>
         </div>

@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { favouriteItemsAtom, toggleFavouriteAtom } from '../state/store.js';
+
 import ProductCard from '../components/ProductCard/ProductCard.jsx';
-import { useGlobalState } from '../state/GlobalState.jsx'; 
 import '../css/category.scss';
 
 const CategoryPage = () => {
@@ -9,53 +11,47 @@ const CategoryPage = () => {
   const location = useLocation();
   const categoryName = location.state?.categoryName || "Headphones";
   
-  // Lấy dữ liệu từ Global State
-  const { favouriteItems, toggleFavourite } = useGlobalState();
+  // --- JOTAI HOOKS ---
+  const favouriteItems = useAtomValue(favouriteItemsAtom);
+  const toggleFavourite = useSetAtom(toggleFavouriteAtom);
 
   const products = [
-    {
-      id: 4,
-      image: '/src/assets/sony-headphones-black.png',
-      title: 'SONY Premium Wireless Headphones',
-      price: 349.99,
-      model: 'Model: WH-1000XM4, Black'
-    },
-    {
-      id: 2, 
-      image: '/src/assets/sony-headphones-beige.png',
-      title: 'SONY Premium Wireless Headphones',
-      price: 349.99,
-      model: 'Model: WH-1000XM4, Beige'
-    },
-    {
-      id: 1,
-      image: '/src/assets/rode-podmic.png',
-      title: 'RØDE PodMic',
-      price: 108.20,
-      model: 'Dynamic Microphone'
-    },
-    {
-      id: 10, 
-      image: '/src/assets/apple-airpods-max.png',
-      title: 'APPLE AirPods Pro MagSafe Case',
-      price: 179.00,
-      model: 'NC, 4 h, Wireless'
-    },
-    {
-      id: 3, 
-      image: '/src/assets/samsung-buds.png',
-      title: 'SAMSUNG Galaxy Buds 2 Pro',
-      price: 119.99,
-      originalPrice: '149.99',
-      model: 'NC, 6 h, Wireless'
-    },
-    {
-      id: 11, 
-      image: '/src/assets/speaker.png',
-      title: 'GOOGLE Nest Mini',
-      price: 70.99,
-      model: 'Google Assistant, IFTTT'
-    },
+    { id: 4, 
+      image: '/src/assets/sony-headphones-black.png', 
+      title: 'SONY Premium Wireless Headphones', 
+      price: 349.99, 
+      model: 'Model: WH-1000XM4, Black' },
+
+    { id: 2, 
+      image: '/src/assets/sony-headphones-beige.png', 
+      title: 'SONY Premium Wireless Headphones', 
+      price: 349.99, 
+      model: 'Model: WH-1000XM4, Beige' },
+
+    { id: 1, 
+      image: '/src/assets/rode-podmic.png', 
+      title: 'RØDE PodMic', 
+      price: 108.20, 
+      model: 'Dynamic Microphone' },
+
+    { id: 10, 
+      image: '/src/assets/apple-airpods-max.png', 
+      title: 'APPLE AirPods Pro MagSafe Case', 
+      price: 179.00, 
+      model: 'NC, 4 h, Wireless' },
+
+    { id: 3, 
+      image: '/src/assets/samsung-buds.png', 
+      title: 'SAMSUNG Galaxy Buds 2 Pro', 
+      price: 119.99, 
+      originalPrice: '149.99', 
+      model: 'NC, 6 h, Wireless' },
+
+    { id: 11, 
+      image: '/src/assets/speaker.png', 
+      title: 'GOOGLE Nest Mini', 
+      price: 70.99, 
+      model: 'Google Assistant, IFTTT' },
   ];
 
   const checkIsFavorite = (productId) => {
