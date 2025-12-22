@@ -1,8 +1,8 @@
 import React from 'react';
 import { Page, useNavigate, useSnackbar } from 'zmp-ui';
 import { useAtom } from 'jotai';
-import { userInfoAtom } from '../state/store.js';
-import '../css/profile.scss';
+import { userInfoAtom } from '../../state/store.js';
+import './profile.scss';
 
 const ProfilePage = () => {
   const navigate = useNavigate();

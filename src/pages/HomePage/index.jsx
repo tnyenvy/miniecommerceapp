@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Page, Swiper, useNavigate } from 'zmp-ui';
 import { useAtomValue, useSetAtom } from 'jotai'; 
-import { favouriteItemsAtom, toggleFavouriteAtom, userInfoAtom } from '../state/store.js';
-import Header from '../components/Header/Header.jsx';
-import ProductCard from '../components/ProductCard/ProductCard.jsx';
+import { favouriteItemsAtom, toggleFavouriteAtom, userInfoAtom } from '../../state/store.js';
+import Header from '../../components/Header/Header.jsx';
+import ProductCard from '../../components/ProductCard/ProductCard.jsx';
 import '../css/homepage.scss'; 
 
 const HomePage = () => {

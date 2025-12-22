@@ -4,13 +4,13 @@ import { AnimationRoutes } from 'zmp-ui';
 import { useAtomValue } from 'jotai'; 
 import { cartItemsAtom, favouriteItemsAtom } from '../state/store.js'; 
 
-import HomePage from '../pages/index.jsx'; 
-import BrowsePage from '../pages/BrowsePage.jsx';
-import CategoryPage from '../pages/CategoryPage.jsx';
-import ProductDetailPage from '../pages/ProductDetailPage.jsx';
-import CartPage from '../pages/CartPage.jsx'; 
-import FavouritesPage from '../pages/FavouritesPage.jsx';
-import ProfilePage from '../pages/ProfilePage.jsx'; 
+import HomePage from '../pages/HomePage/index.jsx'; 
+import BrowsePage from '../pages/BrowsePage/BrowsePage.jsx';
+import CategoryPage from '../pages/CategoryPage/CategoryPage.jsx';
+import ProductDetailPage from '../pages/ProductDetailPage/ProductDetailPage.jsx';
+import CartPage from '../pages/CartPage/CartPage.jsx'; 
+import FavouritesPage from '../pages/FavouritesPage/FavouritesPage.jsx';
+import ProfilePage from '../pages/ProfilePage/ProfilePage.jsx'; 
 
 import Footer from './Footer/Footer.jsx';
 
