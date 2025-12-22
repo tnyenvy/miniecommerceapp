@@ -117,12 +117,15 @@ const HomePage = () => {
           <div className="homepage__deals">
             <Swiper 
               ref={swiperRef}
-              autoplay 
+              autoplay={{
+                delay: 2500,              
+                disableOnInteraction: false, 
+              }} 
               loop 
               duration={3000}
               speed={500}
               dots={false}
-              onChange={(index) => setActiveIndex(index)}
+              afterChange={(index) => setActiveIndex(index)}
             >
               {deals.map((deal) => (
                 <Swiper.Slide key={deal.id}>

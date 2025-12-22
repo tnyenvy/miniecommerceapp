@@ -1,9 +1,6 @@
 import React, { memo } from 'react';
 import { Route, useLocation } from 'react-router-dom';
 import { AnimationRoutes } from 'zmp-ui';
-import { useAtomValue } from 'jotai'; 
-import { cartItemsAtom, favouriteItemsAtom } from '../state/store.js'; 
-
 import HomePage from '../pages/HomePage/index.jsx'; 
 import BrowsePage from '../pages/BrowsePage/BrowsePage.jsx';
 import CategoryPage from '../pages/CategoryPage/CategoryPage.jsx';
@@ -16,14 +13,6 @@ import Footer from './Footer/Footer.jsx';
 
 const Layout = memo(() => {
   const location = useLocation();
-
-  // Thay useGlobalState bằng useAtomValue
-  const cartItems = useAtomValue(cartItemsAtom);
-  const favouriteItemsList = useAtomValue(favouriteItemsAtom);
-
-  // Tính toán số lượng để truyền xuống Footer
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const favouriteCount = favouriteItemsList.length;
 
   // --- FOOTER ---
   const routesWithFooter = ['/', '/browse', '/cart', '/favourites', '/profile', '/category'];
@@ -42,12 +31,7 @@ const Layout = memo(() => {
         <Route path="/profile" element={<ProfilePage />} />
       </AnimationRoutes>
 
-      {shouldShowFooter && (
-        <Footer 
-          cartCount={totalItems} 
-          favouriteCount={favouriteCount} 
-        />
-      )}
+      {shouldShowFooter && <Footer />}
       
     </div>
   );

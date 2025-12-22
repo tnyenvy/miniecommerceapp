@@ -1,10 +1,20 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; 
+import { useAtomValue } from 'jotai'; 
+import { cartItemsAtom, favouriteItemsAtom } from '../../state/store.js'; 
 import './Footer.scss';
 
-const Footer = ({ cartCount = 0, favouriteCount = 0 }) => {
+const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  // --- Lấy dữ liệu từ atoms ---
+  const cartItems = useAtomValue(cartItemsAtom);
+  const favouriteItems = useAtomValue(favouriteItemsAtom);
+
+  // Tính toán số lượng
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const favouriteCount = favouriteItems.length;
 
   const navItems = [
     { path: '/', label: 'Home', icon: 'home.png' },
