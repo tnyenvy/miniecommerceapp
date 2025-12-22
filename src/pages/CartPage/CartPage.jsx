@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'zmp-ui';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { cartItemsAtom, updateQuantityAtom, removeFromCartAtom } from '../state/store.js';
+import { cartItemsAtom, updateQuantityAtom, removeFromCartAtom } from '../../state/store.js';
 
-import CartItem from '../components/CartItem/CartItem.jsx';
-import '../css/cart.scss'; 
+import CartItem from '../../components/CartItem/CartItem.jsx';
+import './cart.scss'; 
 
 const CartPage = () => {
   const navigate = useNavigate();

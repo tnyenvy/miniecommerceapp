@@ -4,7 +4,7 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { favouriteItemsAtom, toggleFavouriteAtom, userInfoAtom } from '../../state/store.js';
 import Header from '../../components/Header/Header.jsx';
 import ProductCard from '../../components/ProductCard/ProductCard.jsx';
-import '../css/homepage.scss'; 
+import './homepage.scss'; 
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -120,6 +120,7 @@ const HomePage = () => {
               autoplay 
               loop 
               duration={3000}
+              speed={500}
               dots={false}
               afterChange={(index) => setActiveIndex(index)}
             >

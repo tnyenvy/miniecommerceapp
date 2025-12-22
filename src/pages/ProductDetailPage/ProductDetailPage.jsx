@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'zmp-ui'; 
 import { useAtomValue, useSetAtom } from 'jotai';
-import { cartItemsAtom, addToCartAtom, favouriteItemsAtom, toggleFavouriteAtom } from '../state/store.js';
+import { cartItemsAtom, addToCartAtom, favouriteItemsAtom, toggleFavouriteAtom } from '../../state/store.js';
 
-import Footer from '../components/Footer/Footer.jsx';
-import '../css/productdetail.scss'; 
+import Footer from '../../components/Footer/Footer.jsx';
+import './productdetail.scss'; 
 
 const ProductDetailPage = () => {
   const navigate = useNavigate();

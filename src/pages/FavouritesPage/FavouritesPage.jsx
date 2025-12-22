@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate, useSnackbar } from 'zmp-ui';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { favouriteItemsAtom, addToCartAtom, toggleFavouriteAtom } from '../state/store.js';
-import FavouriteItem from '../components/FavouriteItem/FavouriteItem.jsx'; 
-import '../css/favourites.scss'; 
+import { favouriteItemsAtom, addToCartAtom, toggleFavouriteAtom } from '../../state/store.js';
+import FavouriteItem from '../../components/FavouriteItem/FavouriteItem.jsx'; 
+import './favourites.scss'; 
 
 const FavouritesPage = () => {
   const navigate = useNavigate();

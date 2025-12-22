@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { favouriteItemsAtom, toggleFavouriteAtom } from '../state/store.js';
+import { favouriteItemsAtom, toggleFavouriteAtom } from '../../state/store.js';
 
-import ProductCard from '../components/ProductCard/ProductCard.jsx';
-import '../css/category.scss';
+import ProductCard from '../../components/ProductCard/ProductCard.jsx';
+import './category.scss';
 
 const CategoryPage = () => {
   const navigate = useNavigate();
