@@ -1,10 +1,15 @@
 import React, { useState, useRef } from 'react';
-import { Page, Swiper, useNavigate } from 'zmp-ui';
+import { Page, useNavigate } from 'zmp-ui';
 import { useAtomValue, useSetAtom } from 'jotai'; 
 import { favouriteItemsAtom, toggleFavouriteAtom, userInfoAtom } from '../../state/store.js';
 import Header from '../../components/Header/Header.jsx';
 import ProductCard from '../../components/ProductCard/ProductCard.jsx';
 import './homepage.scss'; 
+
+// --- SWIPER ---
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -116,27 +121,27 @@ const HomePage = () => {
           
           <div className="homepage__deals">
             <Swiper 
-              ref={swiperRef}
-              autoplay={{
-                delay: 2500,              
-                disableOnInteraction: false, 
-              }} 
-              loop 
-              duration={3000}
+              modules={[Autoplay]} // Autoplay - on
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+              loop={true}
               speed={500}
-              dots={false}
-              afterChange={(index) => setActiveIndex(index)}
+              autoplay={{
+                delay: 2500,            
+                disableOnInteraction: false, 
+              }}
+              onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+              className="my-custom-swiper"
             >
               {deals.map((deal) => (
-                <Swiper.Slide key={deal.id}>
+                <SwiperSlide key={deal.id}>
                   <ProductCard
                     size="large"
                     {...deal}
                     isFavorite={checkIsFavorite(deal.id)}
-                    onToggleFavorite={() => toggleFavourite(deal)} // Gọi action Jotai
+                    onToggleFavorite={() => toggleFavourite(deal)}
                     onClick={() => handleProductClick(deal)}
                   />
-                </Swiper.Slide>
+                </SwiperSlide>
               ))}
             </Swiper>
           </div>
@@ -148,8 +153,8 @@ const HomePage = () => {
                 key={index}
                 className={`slide-indicators__dot ${index === activeIndex ? 'slide-indicators__dot--active' : ''}`}
                 onClick={() => {
-                   if(swiperRef.current && swiperRef.current.swiper) {
-                     swiperRef.current.swiper.slideToLoop(index);
+                   if(swiperRef.current) {
+                     swiperRef.current.slideToLoop(index);
                    }
                 }}
               ></span>
@@ -169,7 +174,7 @@ const HomePage = () => {
                   size="small"
                   {...product}
                   isFavorite={checkIsFavorite(product.id)}
-                  onToggleFavorite={() => toggleFavourite(product)} // Gọi action Jotai
+                  onToggleFavorite={() => toggleFavourite(product)}
                   onClick={() => handleProductClick(product)}
                 />
               ))

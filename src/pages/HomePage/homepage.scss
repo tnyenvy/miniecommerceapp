@@ -46,13 +46,13 @@
   &__deals {
     width: 100%;
     
-    .zaui-swiper {
+    .swiper { 
         padding-bottom: 10px; 
     }
 
-    .zaui-swiper-slide {
+    .swiper-slide {
       height: auto; 
-      display: none;    
+      display: flex;     
       justify-content: center;
     }
   }
@@ -93,7 +93,6 @@
     border-radius: 5px;
     background-color: #E0E0E0; 
     transition: width 0.5s ease, background-color 0.5s ease; 
-  
     cursor: pointer;
 
     &--active {
