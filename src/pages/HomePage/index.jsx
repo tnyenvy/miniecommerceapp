@@ -122,7 +122,7 @@ const HomePage = () => {
               duration={3000}
               speed={500}
               dots={false}
-              afterChange={(index) => setActiveIndex(index)}
+              onChange={(index) => setActiveIndex(index)}
             >
               {deals.map((deal) => (
                 <Swiper.Slide key={deal.id}>

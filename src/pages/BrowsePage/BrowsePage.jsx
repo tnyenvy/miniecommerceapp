@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'zmp-ui';
-import '../css/browse.scss'; 
+import './browse.scss'; 
 
 const BrowsePage = () => {
   const navigate = useNavigate();
